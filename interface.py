@@ -129,37 +129,79 @@ def get_rank_info_from_abs(abs_lp):
 # ==========================================
 # 🎨 CSS GLOBAL 
 # ==========================================
+# ==========================================
+# 🎨 CSS GLOBAL 
+# ==========================================
 st.markdown("""
     <style>
-    /* Esconde a barra superior branca e menus padrão do Streamlit na nuvem */
+    /* 1. Limpeza de Interface Padrão */
     header {visibility: hidden;}
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     
+    /* 2. Cores e Fontes Globais */
     .stApp { background-color: #0D0D0D; color: #EEEEEE; font-family: 'Arial', sans-serif; }
     h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 900 !important; text-transform: uppercase; }
     .lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 6rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: -4px 0px 0px #00BFFF, 4px 0px 0px #FF2A2A; }
     
-    [data-testid="stForm"] [data-testid="column"] { padding: 0 !important; }
-    div[data-testid="stHorizontalBlock"] { gap: 0rem !important; }
+    /* ========================================== */
+    /* 3. BARRA DE PESQUISA (TOTALMENTE REFEITA)  */
+    /* ========================================== */
+    
+    /* Remove margens internas e a borda do Form */
+    [data-testid="stForm"] { border: none !important; background: transparent !important; padding: 0 !important; }
+    
+    /* Remove o espaço vazio entre a barra e o botão da lupa */
+    [data-testid="stForm"] div[data-testid="stHorizontalBlock"] { gap: 0px !important; }
+    
+    /* Remove as labels invisíveis que o Streamlit usa para afastar os itens */
+    [data-testid="stTextInput"] label { display: none !important; }
+    
+    /* INPUT: Destrói as bordas nativas da nuvem e aplica as nossas */
+    div[data-baseweb="input"] { background-color: transparent !important; border: none !important; }
+    div[data-baseweb="input"] > div { background-color: transparent !important; border: none !important; }
+    div[data-baseweb="input"] > div > input {
+        background-color: #000000 !important;
+        border: 2px solid #555555 !important;
+        border-right: none !important; /* Gruda perfeitamente no botão */
+        color: #FFFFFF !important;
+        font-weight: 900 !important;
+        font-size: 1.5rem !important;
+        text-align: center !important;
+        height: 60px !important;
+        border-radius: 8px 0 0 8px !important;
+        padding: 0 15px !important;
+        line-height: 60px !important;
+    }
+    div[data-baseweb="input"] > div > input::placeholder { color: #444444 !important; }
+    
+    /* BOTÃO DE BUSCA (A Lupa) */
+    [data-testid="stFormSubmitButton"] { padding-top: 0 !important; margin: 0 !important; display: flex; align-items: center; }
+    [data-testid="stFormSubmitButton"] > button {
+        background-color: #1A1A1A !important;
+        border: 2px solid #555555 !important;
+        color: #FFFFFF !important;
+        height: 60px !important; 
+        width: 100% !important;
+        border-radius: 0 8px 8px 0 !important;
+        font-size: 1.5rem !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: none !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+    [data-testid="stFormSubmitButton"] > button:hover { 
+        background-color: #FFFFFF !important; 
+        color: #000000 !important; 
+        border-color: #FFFFFF !important; 
+        cursor: pointer; 
+    }
 
-    /* Remove a caixa cinza do Form (Aquele quadrado em volta) */
-    [data-testid="stForm"] { border: none !important; background-color: transparent !important; padding: 0 !important; }
-
-    /* Zera o fundo injetado pelo Streamlit Cloud */
-    [data-testid="stTextInput"] > div > div { background-color: transparent !important; border: none !important; box-shadow: none !important; }
-
-    /* Estilo exato do Input */
-    .stTextInput input { height: 60px !important; background-color: #000000 !important; border: 2px solid #555555 !important; border-right: none !important; color: #FFFFFF !important; font-weight: 900 !important; text-align: center !important; font-size: 1.5rem !important; border-radius: 8px 0 0 8px !important; margin: 0 !important; }
-    .stTextInput input::placeholder { color: #DDDDDD; }
-
-    /* Remove a margem extra que o Streamlit coloca no botão de Submit */
-    [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; }
-
-    /* Estilo exato do Botão (Lupa) */
-    [data-testid="stFormSubmitButton"] button { height: 60px !important; width: 100% !important; border: 2px solid #555555 !important; background-color: #1A1A1A !important; border-radius: 0 8px 8px 0 !important; font-size: 1.5rem !important; margin: 0 !important; padding: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: none !important; }
-    [data-testid="stFormSubmitButton"] button:hover { background-color: #333333 !important; color: #0ac8b9 !important; border-color: #555555 !important; }
-
+    /* ========================================== */
+    /* 4. CARDS E OUTROS COMPONENTES              */
+    /* ========================================== */
     .data-card { background-color: #1A1A1A; border: 1px solid #333333; padding: 15px; margin-bottom: 12px; border-radius: 4px;}
     .vs-logo { font-family: 'Impact', sans-serif; font-size: 6rem; color: #fff; text-shadow: 4px 4px 0 #D32F2F, -4px -4px 0 #1E88E5; font-style: italic; text-align: center; margin-top: 40px; }
     .badge { background-color: #222; border: 1px solid #555; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; color: #0ac8b9; font-weight: bold; margin-right: 8px; text-transform: uppercase; box-shadow: 2px 2px 0px #000;}
