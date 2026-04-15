@@ -176,32 +176,60 @@ if st.session_state.view == 'busca':
     st.markdown("<h1 class='lol-title'>VERSUS.LOL</h1>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1.5, 1])
-    with col2:
-        with st.form("search_bar"):
-            c_i, c_b = st.columns([6, 1])
-            with c_i: 
-                summoner_id = st.text_input("", placeholder="Nome#TAG", label_visibility="collapsed")
-            with c_b: 
-                btn_buscar = st.form_submit_button("BUSCAR")
-            
-            if btn_buscar and summoner_id and '#' in summoner_id:
-                st.session_state.current_summoner = summoner_id 
-                
-                with st.spinner(''):
-                    sucesso = False
-                    try:
-                        res = requests.post(f"{BACKEND_URL}/history", json={"summoner": summoner_id}, timeout=30)
-                        if res.status_code == 200:
-                            st.session_state.player_data = res.json()
-                            sucesso = True
-                        else: 
-                            st.error("Jogador não encontrado. Verifique o Nick e a TAG.")
-                    except requests.exceptions.RequestException: 
-                        st.error("SISTEMA OFFLINE. O servidor backend não está respondendo.")
-                    
-                    if sucesso:
-                        st.session_state.view = 'resultado'
-                        st.rerun()
+
+with col2:
+    with st.form("search_bar"):
+        st.markdown(
+            """
+            <style>
+            div[data-testid="stTextInput"] input {
+                height: 42px;
+                border-radius: 8px 0 0 8px;
+            }
+            div[data-testid="stFormSubmitButton"] button {
+                height: 42px;
+                border-radius: 0 8px 8px 0;
+                margin-top: 0px;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        c_i, c_b = st.columns([8, 1])
+
+        with c_i:
+            summoner_id = st.text_input(
+                "",
+                placeholder="🔎 Nome#TAG",
+                label_visibility="collapsed"
+            )
+
+        with c_b:
+            btn_buscar = st.form_submit_button("🔍")
+
+        if btn_buscar and summoner_id and '#' in summoner_id:
+            st.session_state.current_summoner = summoner_id
+
+            with st.spinner(''):
+                sucesso = False
+                try:
+                    res = requests.post(
+                        f"{BACKEND_URL}/history",
+                        json={"summoner": summoner_id},
+                        timeout=30
+                    )
+                    if res.status_code == 200:
+                        st.session_state.player_data = res.json()
+                        sucesso = True
+                    else:
+                        st.error("Jogador não encontrado. Verifique o Nick e a TAG.")
+                except requests.exceptions.RequestException:
+                    st.error("SISTEMA OFFLINE. O servidor backend não está respondendo.")
+
+                if sucesso:
+                    st.session_state.view = 'resultado'
+                    st.rerun()
 
 # ==========================================
 # 📊 TELA 2: DASHBOARD + HISTÓRICO
