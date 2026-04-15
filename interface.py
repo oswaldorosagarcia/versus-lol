@@ -157,7 +157,7 @@ if 'current_summoner' not in st.session_state: st.session_state.current_summoner
 if 'player_data' not in st.session_state: st.session_state.player_data = None
 if 'match_id' not in st.session_state: st.session_state.match_id = ""
 
-BACKEND_URL = "http://127.0.0.1:5000"
+BACKEND_URL = "https://versus-lol.onrender.com/"
 
 ADS_HTML = """
 <div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 250px; display:flex; flex-direction:column; justify-content:center; border-radius:4px;'>
