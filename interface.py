@@ -94,7 +94,7 @@ def build_stat_bar(label, val1, val2, suffix="", invert_colors=False):
     </div>
     """
 
-# 🔥 FUNÇÕES DE ENGENHARIA DE ELO (Mapeamento Matemático de MMR)
+# 🔥 FUNÇÕES DE ENGENHARIA DE ELO
 def get_abs_lp(tier, rank, lp):
     tiers = {'IRON':0, 'BRONZE':1, 'SILVER':2, 'GOLD':3, 'PLATINUM':4, 'EMERALD':5, 'DIAMOND':6}
     ranks = {'IV':0, 'III':1, 'II':2, 'I':3}
@@ -121,7 +121,7 @@ def get_rank_info_from_abs(abs_lp):
     return f"{tiers[t_idx]} {ranks[r_idx]}", f"{short_tier}{rank_num}", lp, colors[t_idx]
 
 # ==========================================
-# 🎨 CSS GLOBAL 
+# 🎨 CSS GLOBAL - ATUALIZADO COM O TRUQUE MESTRE
 # ==========================================
 st.markdown("""
     <style>
@@ -129,11 +129,70 @@ st.markdown("""
     h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 900 !important; text-transform: uppercase; }
     .lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 6rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: -4px 0px 0px #00BFFF, 4px 0px 0px #FF2A2A; }
     
-    [data-testid="stForm"] [data-testid="column"] { padding: 0 !important; }
-    div[data-testid="stHorizontalBlock"] { gap: 0rem !important; }
+    /* Remove a borda padrão do form */
+    [data-testid="stForm"] { border: none !important; background: transparent !important; padding: 0 !important; }
 
-    .stTextInput>div>div>input { background-color: #000000; border: 2px solid #555555; color: #FFFFFF; font-weight: bold; text-align: center; font-size: 1.5rem; height: 65px; border-radius: 8px 0 0 8px !important; border-right: none !important;}
-    .stTextInput>div>div>input::placeholder { color: #DDDDDD; }
+    /* ========================================================= */
+    /* 🔥 O TRUQUE: O Container vira a Barra de Pesquisa Única   */
+    /* ========================================================= */
+    [data-testid="stForm"] div[data-testid="stHorizontalBlock"] {
+        background-color: #000000 !important;
+        border: 2px solid #555555 !important;
+        border-radius: 8px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
+        height: 65px !important;
+        display: flex !important;
+        align-items: center !important;
+        overflow: hidden !important; /* Impede que lupa ou input vazem os cantos redondos */
+        transition: border-color 0.3s ease;
+    }
+    
+    /* Brilha a borda da caixa inteira quando clica pra digitar */
+    [data-testid="stForm"] div[data-testid="stHorizontalBlock"]:focus-within { border-color: #1E88E5 !important; }
+
+    /* CAIXA DE TEXTO: Fica invisível por fora, só aparece a letra */
+    [data-testid="stForm"] div[data-baseweb="input"] { background-color: transparent !important; border: none !important; }
+    [data-testid="stForm"] div[data-baseweb="input"] > div { background-color: transparent !important; border: none !important; box-shadow: none !important;}
+    [data-testid="stForm"] .stTextInput>div>div>input {
+        background-color: transparent !important;
+        border: none !important;
+        color: #FFFFFF !important;
+        font-weight: 900 !important;
+        text-align: center !important;
+        font-size: 1.5rem !important;
+        height: 65px !important;
+        box-shadow: none !important;
+        padding: 0 15px !important;
+    }
+    [data-testid="stForm"] .stTextInput>div>div>input::placeholder { color: #DDDDDD; }
+    [data-testid="stForm"] .stTextInput>div>div>input:focus { box-shadow: none !important; border: none !important; }
+
+    /* LUPA: Fica invisível por fora, vira apenas um ícone dentro da caixa maior */
+    [data-testid="stForm"] [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 65px !important; }
+    [data-testid="stForm"] [data-testid="stFormSubmitButton"] > button {
+        background-color: transparent !important;
+        border: none !important;
+        color: #FFFFFF !important;
+        height: 100% !important;
+        width: 100% !important;
+        font-size: 1.8rem !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+    }
+    [data-testid="stForm"] [data-testid="stFormSubmitButton"] > button:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important; /* Leve brilho de fundo */
+        color: #0ac8b9 !important;
+        border: none !important;
+        transform: none !important; /* Remove o salto animado da lupa */
+    }
+
+    /* ========================================================= */
+    /* BOTÕES GERAIS E CARDS (MANTIDOS INTACTOS)                 */
+    /* ========================================================= */
     .stButton>button { background-color: #1A1A1A; border: 2px solid #333333; color: #FFFFFF; font-weight: 900; font-size: 1.2rem; font-style: italic; border-radius: 0px; box-shadow: 4px 4px 0px #000000; width:100%;}
     .stButton>button:hover { background-color: #FFFFFF; color: #000000; border-color: #FFFFFF; transform: translate(-2px, -2px); }
     .data-card { background-color: #1A1A1A; border: 1px solid #333333; padding: 15px; margin-bottom: 12px; border-radius: 4px;}
@@ -146,9 +205,6 @@ st.markdown("""
     .metric-card { background: linear-gradient(180deg, #1A1A1A, #111); border: 1px solid #333; padding: 10px; text-align: center; border-radius: 6px; flex: 1; box-shadow: 2px 2px 8px rgba(0,0,0,0.6); }
     .metric-val { font-size: 1.5rem; font-weight: 900; color: #FFF; margin: 0; text-shadow: 1px 1px 2px #000; }
     .metric-lbl { font-size: 0.65rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 4px;}
-    
-    [data-testid="stFormSubmitButton"] > button { height: 65px; border-radius: 0 8px 8px 0 !important; font-size: 1.8rem; border-top: 2px solid #555 !important; border-bottom: 2px solid #555 !important; border-right: 2px solid #555 !important; border-left: none !important; background-color: #000000; margin: 0; padding: 0;}
-    [data-testid="stFormSubmitButton"] > button:hover { background-color: #1A1A1A; border-color: #FFFFFF !important; color: #FFFFFF; transform: none; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -157,7 +213,7 @@ if 'current_summoner' not in st.session_state: st.session_state.current_summoner
 if 'player_data' not in st.session_state: st.session_state.player_data = None
 if 'match_id' not in st.session_state: st.session_state.match_id = ""
 
-BACKEND_URL = "https://versus-lol.onrender.com/"
+BACKEND_URL = "http://127.0.0.1:5000"
 
 ADS_HTML = """
 <div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 250px; display:flex; flex-direction:column; justify-content:center; border-radius:4px;'>
@@ -174,81 +230,21 @@ ADS_HTML = """
 if st.session_state.view == 'busca':
     st.markdown("<div style='height: 28vh;'></div>", unsafe_allow_html=True)
     st.markdown("<h1 class='lol-title'>VERSUS.LOL</h1>", unsafe_allow_html=True)
-
-    # Injeção de CSS focada e blindada apenas para a Barra de Busca
-    st.markdown("""
-    <style>
-    /* Remove a caixa ao redor do formulário inteiro */
-    [data-testid="stForm"] {
-        border: none !important;
-        background-color: transparent !important;
-        padding: 0 !important;
-    }
-
-    /* Zera o espaço (gap) entre a coluna do texto e a coluna do botão */
-    div[data-testid="stForm"] div[data-testid="stHorizontalBlock"] {
-        gap: 0px !important;
-    }
-
-    /* Estilização da Caixa de Texto */
-    div[data-testid="stTextInput"] input {
-        height: 60px !important;
-        border-radius: 8px 0 0 8px !important; /* Arredonda só a esquerda */
-        border: 2px solid #333333 !important;
-        border-right: none !important; /* Apaga a borda que encosta no botão */
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
-        font-size: 1.5rem !important;
-        font-weight: bold !important;
-        text-align: center !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-    }
-    div[data-testid="stTextInput"] input:focus {
-        border-color: #1E88E5 !important;
-    }
-
-    /* Estilização do Botão de Busca (Lupa) */
-    div[data-testid="stFormSubmitButton"] button {
-        height: 60px !important;
-        border-radius: 0 8px 8px 0 !important; /* Arredonda só a direita */
-        border: 2px solid #333333 !important;
-        border-left: none !important; /* Apaga a borda que encosta na caixa de texto */
-        background-color: #111111 !important;
-        color: #FFFFFF !important;
-        font-size: 1.5rem !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-        transition: all 0.3s ease;
-    }
-    div[data-testid="stFormSubmitButton"] button:hover {
-        background-color: #1E88E5 !important;
-        border-color: #1E88E5 !important;
-        color: #FFFFFF !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    # Estrutura das colunas centralizadas na tela
-    col1, col2, col3 = st.columns([1, 1.5, 1])
     
+    col1, col2, col3 = st.columns([1, 1.5, 1])
     with col2:
+        # Adicionado o border=False para sumir com a "segunda caixa" da nuvem
         with st.form("search_bar", border=False):
-            
-            # Divide a barra de pesquisa: 5 partes pro texto, 1 parte pro botão
-            c_i, c_b = st.columns([5, 1])
-            
+            c_i, c_b = st.columns([6, 1])
             with c_i: 
-                summoner_id = st.text_input("Busca", placeholder="Nome#TAG", label_visibility="collapsed")
+                summoner_id = st.text_input("", placeholder="Nome#TAG", label_visibility="collapsed")
             with c_b: 
                 btn_buscar = st.form_submit_button("🔍")
             
             if btn_buscar and summoner_id and '#' in summoner_id:
                 st.session_state.current_summoner = summoner_id 
                 
-                with st.spinner('Buscando Invocador...'):
+                with st.spinner(''):
                     sucesso = False
                     try:
                         res = requests.post(f"{BACKEND_URL}/history", json={"summoner": summoner_id}, timeout=30)
@@ -263,6 +259,7 @@ if st.session_state.view == 'busca':
                     if sucesso:
                         st.session_state.view = 'resultado'
                         st.rerun()
+
 # ==========================================
 # 📊 TELA 2: DASHBOARD + HISTÓRICO
 # ==========================================
@@ -338,7 +335,6 @@ elif st.session_state.view == 'resultado':
                 safe_html(f"<div style='text-align:center; margin-bottom:10px;'><h4 style='color:#FFF; font-size:0.9rem; font-weight:900; letter-spacing:1px; margin:0;'>PERFORMANCE RADAR (GPI)</h4></div>")
                 
                 rv = list(dash['radar'].values())
-                # 🔥 Injetando os valores diretamente no eixo do radar
                 tv = [f"{k}<br><b>{v}</b>" for k, v in dash['radar'].items()]
                 
                 if rv:
@@ -409,27 +405,23 @@ elif st.session_state.view == 'resultado':
                     
                 fig_l = go.Figure()
                 
-                # 1. Fill background (translúcido neutro)
                 fig_l.add_trace(go.Scatter(
                     y=abs_path, x=x_vals, mode='none', fill='tozeroy', fillcolor='rgba(255, 255, 255, 0.05)', 
                     hoverinfo='skip', showlegend=False
                 ))
                 
-                # 2. Colored line segments (Linha multicolorida que acompanha as cores do Elo)
                 for i in range(len(abs_path) - 1):
                     seg_x = [x_vals[i], x_vals[i+1]]
                     seg_y = [abs_path[i], abs_path[i+1]]
                     seg_c = marker_colors[i+1]
                     fig_l.add_trace(go.Scatter(x=seg_x, y=seg_y, mode='lines', line=dict(color=seg_c, width=3), hoverinfo='skip', showlegend=False))
                 
-                # 3. Markers (Bolinhas coloridas)
                 fig_l.add_trace(go.Scatter(
                     y=abs_path, x=x_vals, mode='markers', customdata=hover_texts,
                     marker=dict(size=7, color=marker_colors, line=dict(width=1.5, color='#111')),
                     hovertemplate="%{customdata}<extra></extra>", showlegend=False
                 ))
                 
-                # Zoom Dinâmico do Eixo Y (Evita a "linha espremida")
                 min_abs, max_abs = (min(abs_path) if abs_path else 0), (max(abs_path) if abs_path else 0)
                 y_min = (int(min_abs) // 100) * 100
                 y_max = ((int(max_abs) // 100) + 1) * 100
@@ -440,13 +432,11 @@ elif st.session_state.view == 'resultado':
                 tick_texts = []
                 for v in tick_vals:
                     _, short_rank, _, b_color = get_rank_info_from_abs(v)
-                    # O Pulo do Gato: O Eixo Y aceita HTML e exibe as cores exatas do Elo na lateral esquerda!
                     tick_texts.append(f"<b style='color:{b_color}'>{short_rank}</b>")
                 
                 fig_l.update_layout(
                     paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
                     xaxis=dict(visible=True, showgrid=False, tickmode='array', tickvals=[1, len(abs_path)//2, len(abs_path)], ticktext=["15 games ago", "8", "Last game"], tickfont=dict(color='#666', size=10)), 
-                    # Eixo Y ativado, com linhas tracejadas em cada Elo, e usando os textos com as cores
                     yaxis=dict(visible=True, showgrid=True, gridcolor='#333', griddash='dot', zeroline=False, range=[y_min - 20, y_max + 20], tickmode='array', tickvals=tick_vals, ticktext=tick_texts, tickfont=dict(size=11)), 
                     margin=dict(l=10, r=10, t=10, b=10), height=160
                 )
