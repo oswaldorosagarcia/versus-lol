@@ -26,5 +26,5 @@ Siga os passos abaixo para rodar o dashboard na sua máquina:
 
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/SEU_USUARIO/versus-lol.git](https://github.com/SEU_USUARIO/versus-lol.git)
+   git clone [https://github.com/oswaldorosagarcia/versus-lol.git](https://github.com/oswaldorosagarcia/versus-lol.git)
    cd versus-lol
