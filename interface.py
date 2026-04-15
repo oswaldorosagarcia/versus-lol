@@ -182,7 +182,7 @@ if st.session_state.view == 'busca':
         with st.form("search_bar", border=False):
             
             # Ajustei a proporção para 6:1 para o botão da lupa ficar um quadrado perfeito
-            c_i, c_b = st.columns([6, 1])
+            c_i, c_b = st.columns([5, 1])
 
             with c_i:
                 summoner_id = st.text_input(
