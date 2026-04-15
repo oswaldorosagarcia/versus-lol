@@ -270,5 +270,8 @@ def get_duel():
     except Exception as e: 
         return jsonify({"error": str(e)}), 500
 
-if __name__ == '__main__': 
-    app.run(port=5000, debug=True, threaded=True)
+if __name__ == '__main__':
+    # Pega a porta dinâmica do Render ou usa a 5000 se estiver no seu PC
+    port = int(os.environ.get("PORT", 5000))
+    # O host '0.0.0.0' diz para o Flask: "Pode aceitar conexões da internet!"
+    app.run(host='0.0.0.0', port=port)
