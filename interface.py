@@ -126,6 +126,9 @@ def get_rank_info_from_abs(abs_lp):
 # ==========================================
 # 🎨 CSS GLOBAL 
 # ==========================================
+# ==========================================
+# 🎨 CSS GLOBAL 
+# ==========================================
 st.markdown("""
     <style>
     /* Esconde a barra superior branca e menus padrão do Streamlit na nuvem */
@@ -140,18 +143,23 @@ st.markdown("""
     [data-testid="stForm"] [data-testid="column"] { padding: 0 !important; }
     div[data-testid="stHorizontalBlock"] { gap: 0rem !important; }
 
-    /* Remove a borda dupla injetada pelo Streamlit Cloud */
-    div[data-testid="stTextInput"] div[data-baseweb="input"] { background-color: transparent !important; border: none !important; }
-    
-    .stTextInput>div>div>input { background-color: #000000 !important; border: 2px solid #555555 !important; color: #FFFFFF !important; font-weight: bold !important; text-align: center !important; font-size: 1.5rem !important; height: 65px !important; border-radius: 8px 0 0 8px !important; border-right: none !important; margin: 0 !important;}
-    .stTextInput>div>div>input::placeholder { color: #DDDDDD; }
-    
-    [data-testid="stFormSubmitButton"] { width: 100%; height: 100%; display: flex; align-items: center; }
-    [data-testid="stFormSubmitButton"] > button { width: 100% !important; height: 65px !important; border-radius: 0 8px 8px 0 !important; font-size: 1.8rem !important; border: 2px solid #555 !important; border-left: none !important; background-color: #000000 !important; margin: 0 !important; padding: 0 !important;}
-    [data-testid="stFormSubmitButton"] > button:hover { background-color: #1A1A1A !important; border-color: #FFFFFF !important; color: #FFFFFF !important; }
-    
-    .stButton>button { background-color: #1A1A1A; border: 2px solid #333333; color: #FFFFFF; font-weight: 900; font-size: 1.2rem; font-style: italic; border-radius: 0px; box-shadow: 4px 4px 0px #000000; width:100%;}
-    .stButton>button:hover { background-color: #FFFFFF; color: #000000; border-color: #FFFFFF; transform: translate(-2px, -2px); }
+    /* Remove a caixa cinza do Form (Aquele quadrado em volta) */
+    [data-testid="stForm"] { border: none !important; background-color: transparent !important; padding: 0 !important; }
+
+    /* Zera o fundo injetado pelo Streamlit Cloud */
+    [data-testid="stTextInput"] > div > div { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+
+    /* Estilo exato do Input */
+    .stTextInput input { height: 60px !important; background-color: #000000 !important; border: 2px solid #555555 !important; border-right: none !important; color: #FFFFFF !important; font-weight: 900 !important; text-align: center !important; font-size: 1.5rem !important; border-radius: 8px 0 0 8px !important; margin: 0 !important; }
+    .stTextInput input::placeholder { color: #DDDDDD; }
+
+    /* Remove a margem extra que o Streamlit coloca no botão de Submit */
+    [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; }
+
+    /* Estilo exato do Botão (Lupa) */
+    [data-testid="stFormSubmitButton"] button { height: 60px !important; width: 100% !important; border: 2px solid #555555 !important; background-color: #1A1A1A !important; border-radius: 0 8px 8px 0 !important; font-size: 1.5rem !important; margin: 0 !important; padding: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: none !important; }
+    [data-testid="stFormSubmitButton"] button:hover { background-color: #333333 !important; color: #0ac8b9 !important; border-color: #555555 !important; }
+
     .data-card { background-color: #1A1A1A; border: 1px solid #333333; padding: 15px; margin-bottom: 12px; border-radius: 4px;}
     .vs-logo { font-family: 'Impact', sans-serif; font-size: 6rem; color: #fff; text-shadow: 4px 4px 0 #D32F2F, -4px -4px 0 #1E88E5; font-style: italic; text-align: center; margin-top: 40px; }
     .badge { background-color: #222; border: 1px solid #555; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; color: #0ac8b9; font-weight: bold; margin-right: 8px; text-transform: uppercase; box-shadow: 2px 2px 0px #000;}
