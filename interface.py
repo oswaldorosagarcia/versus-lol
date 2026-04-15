@@ -238,10 +238,11 @@ if st.session_state.view == 'busca':
     st.markdown("<div style='height: 28vh;'></div>", unsafe_allow_html=True)
     st.markdown("<h1 class='lol-title'>VERSUS.LOL</h1>", unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns([1, 1.5, 1])
+   col1, col2, col3 = st.columns([1, 1.5, 1])
     with col2:
+        # border=False tira a caixa cinza nativa da nuvem
         with st.form("search_bar", border=False):
-            c_i, c_b = st.columns([6, 1])
+            c_i, c_b = st.columns([5, 1])
             with c_i: 
                 summoner_id = st.text_input("", placeholder="Nome#TAG", label_visibility="collapsed")
             with c_b: 
