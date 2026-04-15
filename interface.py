@@ -182,7 +182,7 @@ if st.session_state.view == 'busca':
             with c_i: 
                 summoner_id = st.text_input("", placeholder="Nome#TAG", label_visibility="collapsed")
             with c_b: 
-                btn_buscar = st.form_submit_button("BUSCAR INVOCADOR")
+                btn_buscar = st.form_submit_button("BUSCAR")
             
             if btn_buscar and summoner_id and '#' in summoner_id:
                 st.session_state.current_summoner = summoner_id 
