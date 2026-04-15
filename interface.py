@@ -174,49 +174,95 @@ ADS_HTML = """
 if st.session_state.view == 'busca':
     st.markdown("<div style='height: 28vh;'></div>", unsafe_allow_html=True)
     st.markdown("<h1 class='lol-title'>VERSUS.LOL</h1>", unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns([1, 1.5, 1])
 
+    # Injeção de CSS focada e blindada apenas para a Barra de Busca
+    st.markdown("""
+    <style>
+    /* Remove a caixa ao redor do formulário inteiro */
+    [data-testid="stForm"] {
+        border: none !important;
+        background-color: transparent !important;
+        padding: 0 !important;
+    }
+
+    /* Zera o espaço (gap) entre a coluna do texto e a coluna do botão */
+    div[data-testid="stForm"] div[data-testid="stHorizontalBlock"] {
+        gap: 0px !important;
+    }
+
+    /* Estilização da Caixa de Texto */
+    div[data-testid="stTextInput"] input {
+        height: 60px !important;
+        border-radius: 8px 0 0 8px !important; /* Arredonda só a esquerda */
+        border: 2px solid #333333 !important;
+        border-right: none !important; /* Apaga a borda que encosta no botão */
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        font-size: 1.5rem !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+    div[data-testid="stTextInput"] input:focus {
+        border-color: #1E88E5 !important;
+    }
+
+    /* Estilização do Botão de Busca (Lupa) */
+    div[data-testid="stFormSubmitButton"] button {
+        height: 60px !important;
+        border-radius: 0 8px 8px 0 !important; /* Arredonda só a direita */
+        border: 2px solid #333333 !important;
+        border-left: none !important; /* Apaga a borda que encosta na caixa de texto */
+        background-color: #111111 !important;
+        color: #FFFFFF !important;
+        font-size: 1.5rem !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        transition: all 0.3s ease;
+    }
+    div[data-testid="stFormSubmitButton"] button:hover {
+        background-color: #1E88E5 !important;
+        border-color: #1E88E5 !important;
+        color: #FFFFFF !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Estrutura das colunas centralizadas na tela
+    col1, col2, col3 = st.columns([1, 1.5, 1])
+    
     with col2:
-        # border=False é essencial para sumir com a caixa extra na nuvem
         with st.form("search_bar", border=False):
             
-            # Ajustei a proporção para 6:1 para o botão da lupa ficar um quadrado perfeito
+            # Divide a barra de pesquisa: 5 partes pro texto, 1 parte pro botão
             c_i, c_b = st.columns([5, 1])
-
-            with c_i:
-                summoner_id = st.text_input(
-                    "",
-                    placeholder="Nome#TAG",
-                    label_visibility="collapsed"
-                )
-
-            with c_b:
-                btn_buscar = st.form_submit_button("buscar")
-
+            
+            with c_i: 
+                summoner_id = st.text_input("Busca", placeholder="Nome#TAG", label_visibility="collapsed")
+            with c_b: 
+                btn_buscar = st.form_submit_button("🔍")
+            
             if btn_buscar and summoner_id and '#' in summoner_id:
-                st.session_state.current_summoner = summoner_id
-
-                with st.spinner(''):
+                st.session_state.current_summoner = summoner_id 
+                
+                with st.spinner('Buscando Invocador...'):
                     sucesso = False
                     try:
-                        res = requests.post(
-                            f"{BACKEND_URL}/history",
-                            json={"summoner": summoner_id},
-                            timeout=30
-                        )
+                        res = requests.post(f"{BACKEND_URL}/history", json={"summoner": summoner_id}, timeout=30)
                         if res.status_code == 200:
                             st.session_state.player_data = res.json()
                             sucesso = True
-                        else:
+                        else: 
                             st.error("Jogador não encontrado. Verifique o Nick e a TAG.")
-                    except requests.exceptions.RequestException:
+                    except requests.exceptions.RequestException: 
                         st.error("SISTEMA OFFLINE. O servidor backend não está respondendo.")
-
+                    
                     if sucesso:
                         st.session_state.view = 'resultado'
                         st.rerun()
-
 # ==========================================
 # 📊 TELA 2: DASHBOARD + HISTÓRICO
 # ==========================================
