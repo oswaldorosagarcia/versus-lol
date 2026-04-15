@@ -123,8 +123,16 @@ def get_rank_info_from_abs(abs_lp):
 # ==========================================
 # 🎨 CSS GLOBAL 
 # ==========================================
+# ==========================================
+# 🎨 CSS GLOBAL 
+# ==========================================
 st.markdown("""
     <style>
+    /* Esconde a barra superior branca e menus padrão do Streamlit na nuvem */
+    header {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    
     .stApp { background-color: #0D0D0D; color: #EEEEEE; font-family: 'Arial', sans-serif; }
     h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 900 !important; text-transform: uppercase; }
     .lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 6rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: -4px 0px 0px #00BFFF, 4px 0px 0px #FF2A2A; }
@@ -132,8 +140,16 @@ st.markdown("""
     [data-testid="stForm"] [data-testid="column"] { padding: 0 !important; }
     div[data-testid="stHorizontalBlock"] { gap: 0rem !important; }
 
-    .stTextInput>div>div>input { background-color: #000000; border: 2px solid #555555; color: #FFFFFF; font-weight: bold; text-align: center; font-size: 1.5rem; height: 65px; border-radius: 8px 0 0 8px !important; border-right: none !important;}
+    /* Remove a borda dupla injetada pelo Streamlit Cloud */
+    div[data-testid="stTextInput"] div[data-baseweb="input"] { background-color: transparent !important; border: none !important; }
+    
+    .stTextInput>div>div>input { background-color: #000000 !important; border: 2px solid #555555 !important; color: #FFFFFF !important; font-weight: bold !important; text-align: center !important; font-size: 1.5rem !important; height: 65px !important; border-radius: 8px 0 0 8px !important; border-right: none !important; margin: 0 !important;}
     .stTextInput>div>div>input::placeholder { color: #DDDDDD; }
+    
+    [data-testid="stFormSubmitButton"] { width: 100%; height: 100%; display: flex; align-items: center; }
+    [data-testid="stFormSubmitButton"] > button { width: 100% !important; height: 65px !important; border-radius: 0 8px 8px 0 !important; font-size: 1.8rem !important; border: 2px solid #555 !important; border-left: none !important; background-color: #000000 !important; margin: 0 !important; padding: 0 !important;}
+    [data-testid="stFormSubmitButton"] > button:hover { background-color: #1A1A1A !important; border-color: #FFFFFF !important; color: #FFFFFF !important; }
+    
     .stButton>button { background-color: #1A1A1A; border: 2px solid #333333; color: #FFFFFF; font-weight: 900; font-size: 1.2rem; font-style: italic; border-radius: 0px; box-shadow: 4px 4px 0px #000000; width:100%;}
     .stButton>button:hover { background-color: #FFFFFF; color: #000000; border-color: #FFFFFF; transform: translate(-2px, -2px); }
     .data-card { background-color: #1A1A1A; border: 1px solid #333333; padding: 15px; margin-bottom: 12px; border-radius: 4px;}
@@ -146,9 +162,6 @@ st.markdown("""
     .metric-card { background: linear-gradient(180deg, #1A1A1A, #111); border: 1px solid #333; padding: 10px; text-align: center; border-radius: 6px; flex: 1; box-shadow: 2px 2px 8px rgba(0,0,0,0.6); }
     .metric-val { font-size: 1.5rem; font-weight: 900; color: #FFF; margin: 0; text-shadow: 1px 1px 2px #000; }
     .metric-lbl { font-size: 0.65rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 4px;}
-    
-    [data-testid="stFormSubmitButton"] > button { height: 65px; border-radius: 0 8px 8px 0 !important; font-size: 1.8rem; border-top: 2px solid #555 !important; border-bottom: 2px solid #555 !important; border-right: 2px solid #555 !important; border-left: none !important; background-color: #000000; margin: 0; padding: 0;}
-    [data-testid="stFormSubmitButton"] > button:hover { background-color: #1A1A1A; border-color: #FFFFFF !important; color: #FFFFFF; transform: none; }
     </style>
 """, unsafe_allow_html=True)
 
