@@ -125,7 +125,14 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 900 !important; text-tr
 /* ========================================================= */
 /* 🔥 OTIMIZAÇÃO: REMOVER MARGENS NATIVAS DA NUVEM           */
 /* ========================================================= */
+
+/* Esconde o cabeçalho branco (Menu/Deploy) e o rodapé padrão */
+header[data-testid="stHeader"] { display: none !important; height: 0px !important; }
+footer { display: none !important; }
+div[data-testid="stToolbar"] { display: none !important; }
+
+/* Remove os espaços gigantes em cima e em baixo */
 .block-container {
-    padding: 2rem 1rem !important;
+    padding: 1rem 1rem 0rem 1rem !important;
     max-width: 95% !important;
 }
