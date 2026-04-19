@@ -41,9 +41,10 @@ if 'current_summoner' not in st.session_state: st.session_state.current_summoner
 if 'player_data' not in st.session_state: st.session_state.player_data = None
 if 'match_id' not in st.session_state: st.session_state.match_id = ""
 if 'main_champ' not in st.session_state: st.session_state.main_champ = ""
+if 'selected_champion' not in st.session_state: st.session_state.selected_champion = None
 
 import os
-BACKEND_URL = os.getenv("BACKEND_URL", "https://versus-lol.onrender.com") # APONTADO PARA O LOCALHOST
+BACKEND_URL = os.getenv("BACKEND_URL", "https://versus-lol.onrender.com")
 
 # ==========================================
 # 🔗 SINCRONIZAÇÃO DE NAVEGAÇÃO POR URL
