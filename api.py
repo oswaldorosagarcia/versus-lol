@@ -137,6 +137,7 @@ def get_history():
                 player_obj = {
                     "champ": p.get("championName", "Unknown"), 
                     "name": p.get("riotIdGameName", p.get("summonerName", "Unknown")), 
+                    "tag": p.get("riotIdTagLine", "BR1"),
                     "lane": p.get("teamPosition", "")
                 }
                 if t_id == 100: team100.append(player_obj)
@@ -147,15 +148,18 @@ def get_history():
 
             rival_champ = "Unknown"
             rival_name = "Oponente"
+            rival_tag = "BR1"
             enemy_team = team200 if main_p.get("teamId") == 100 else team100
             for px in enemy_team:
                 if px["lane"] == main_p.get("teamPosition") and px["lane"] not in ["", "Invalid", "NONE"]:
                     rival_champ = px["champ"]
                     rival_name = px["name"]
+                    rival_tag = px["tag"]
                     break
             if rival_champ == "Unknown" and enemy_team:
                 rival_champ = enemy_team[0]["champ"]
                 rival_name = enemy_team[0]["name"]
+                rival_tag = enemy_team[0]["tag"]
 
             tk = max(team_kills.get(main_p.get("teamId", 100), 1), 1)
             kp = round(((main_p.get("kills", 0) + main_p.get("assists", 0)) / tk) * 100)
@@ -202,7 +206,7 @@ def get_history():
                 "spells": [main_p.get("summoner1Id", 0), main_p.get("summoner2Id", 0)],
                 "runes": {"primary": rune_primary, "secondary": rune_secondary},
                 "feedbacks": analise["feedbacks"], "team100": team100, "team200": team200, 
-                "rival_champ": rival_champ, "rival_name": rival_name,
+                "rival_champ": rival_champ, "rival_name": rival_name, "rival_tag": rival_tag,
                 "vision": main_p.get("visionScore", 0),
                 "damage": main_p.get("totalDamageDealtToChampions", 0),
                 "c_wards": main_p.get("visionWardsBoughtInGame", 0),

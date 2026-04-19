@@ -1,5 +1,6 @@
 import streamlit as st
 import re
+import urllib.parse
 
 def load_css(file_name):
     """Carrega as customizações CSS a partir de um arquivo externo."""
@@ -173,8 +174,8 @@ def build_match_card_html(g):
     elif kda_ratio >= 2.0: kda_color = "#1E88E5" 
     else: kda_color = "#888"    
     
-    team1_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;'><img src='{get_champ_img(p['champ'])}' width='12' height='12' style='border-radius:3px;'><span style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:0.55rem; max-width:65px;' title='{p['name']}'>{p['name']}</span></div>" for p in g['team100']])
-    team2_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;'><img src='{get_champ_img(p['champ'])}' width='12' height='12' style='border-radius:3px;'><span style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:0.55rem; max-width:65px;' title='{p['name']}'>{p['name']}</span></div>" for p in g['team200']])
+    team1_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;' title='Ver perfil de {p['name']}#{p.get('tag', 'BR1')}'><img src='{get_champ_img(p['champ'])}' width='12' height='12' style='border-radius:3px;'><a href='/?summoner={urllib.parse.quote(p['name'] + '#' + p.get('tag', 'BR1'))}' target='_self' style='color:#DDD; text-decoration:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:0.55rem; max-width:65px;' onmouseover='this.style.color=\"#0ac8b9\"' onmouseout='this.style.color=\"#DDD\"'>{p['name']}</a></div>" for p in g['team100']])
+    team2_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;' title='Ver perfil de {p['name']}#{p.get('tag', 'BR1')}'><img src='{get_champ_img(p['champ'])}' width='12' height='12' style='border-radius:3px;'><a href='/?summoner={urllib.parse.quote(p['name'] + '#' + p.get('tag', 'BR1'))}' target='_self' style='color:#DDD; text-decoration:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:0.55rem; max-width:65px;' onmouseover='this.style.color=\"#0ac8b9\"' onmouseout='this.style.color=\"#DDD\"'>{p['name']}</a></div>" for p in g['team200']])
     
     feedbacks_html = "".join([f"<span style='background-color:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#DDD; font-size:0.55rem; padding:2px 6px; border-radius:12px; font-weight:bold; letter-spacing:0.5px;'>{f}</span>" for f in g.get('feedbacks', [])])
 
@@ -202,19 +203,19 @@ def build_match_card_html(g):
                 </div>
             </div>
             <div style='width:12%; text-align:center;'>
-                <p style='color:#FFF; margin:0; font-size:0.8rem; font-weight:bold;'>{g.get('kills',0)} / <span style='color:#D32F2F;'>{g.get('deaths',0)}</span> / {g.get('assists',0)}</p>
-                <p style='color:{kda_color}; margin:0; font-size:0.65rem; font-weight:bold;'>{kda_ratio}:1 KDA</p>
+                <p style='color:#FFF; margin:0; font-size:0.8rem; font-weight:bold;' title='Kills / Deaths / Assists'>{g.get('kills',0)} / <span style='color:#D32F2F;'>{g.get('deaths',0)}</span> / {g.get('assists',0)}</p>
+                <p style='color:{kda_color}; margin:0; font-size:0.65rem; font-weight:bold;' title='Relação de Abates e Assistências por Mortes (KDA Ratio)'>{kda_ratio}:1 KDA</p>
             </div>
             <div style='width:12%; text-align:center;'>
-                <p style='margin:0; color:#FFF; font-weight:bold; font-size:0.75rem;'>{g.get('cs',0)} CS</p>
-                <p style='margin:0; color:#888; font-size:0.65rem;'>({csm}/m)</p>
-                <p style='margin:2px 0 0 0; color:#FF2A2A; font-weight:bold; font-size:0.65rem;'>{g.get('kp', 0)}% KP</p>
+                <p style='margin:0; color:#FFF; font-weight:bold; font-size:0.75rem;' title='Creep Score (Minions e Monstros abatidos)'>{g.get('cs',0)} CS</p>
+                <p style='margin:0; color:#888; font-size:0.65rem;' title='Farm por minuto'>({csm}/m)</p>
+                <p style='margin:2px 0 0 0; color:#FF2A2A; font-weight:bold; font-size:0.65rem;' title='Kill Participation (Participação em abates da equipe)'>{g.get('kp', 0)}% KP</p>
             </div>
             <div style='width:18%;'>{build_item_html(g.get('items', [0,0,0,0,0,0,0]))}</div>
             <div style='width:12%; display:flex; flex-direction:column; align-items:center; justify-content:center; border-left: 1px solid #333;'>
                 <p style='color:#888; font-size:0.5rem; font-weight:bold;'>OPONENTE</p>
-                <img src='{get_champ_img(g.get("rival_champ", "Unknown"))}' width='32' style='border-radius:50%; border:2px solid {r_b_c};'>
-                <p style='color:#FFF; margin:4px 0 0 0; font-size:0.65rem; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:80px;' title='{g.get("rival_name", "Inimigo")}'>{g.get("rival_name", "Inimigo")}</p>
+                <img src='{get_champ_img(g.get("rival_champ", "Unknown"))}' width='32' style='border-radius:50%; border:2px solid {r_b_c};' title='{g.get("rival_champ", "Unknown")}'>
+                <p style='color:#FFF; margin:4px 0 0 0; font-size:0.65rem; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:80px;' title='Ver perfil de {g.get("rival_name", "Inimigo")}#{g.get("rival_tag", "BR1")}'><a href='/?summoner={urllib.parse.quote(g.get("rival_name", "") + "#" + g.get("rival_tag", "BR1"))}' target='_self' style='color:#FFF; text-decoration:none;' onmouseover='this.style.color=\"#0ac8b9\"' onmouseout='this.style.color=\"#FFF\"'>{g.get("rival_name", "Inimigo")}</a></p>
             </div>
             <div style='width:18%; display:flex; justify-content:space-between; font-size:0.65rem; color:#888; padding-left:10px; border-left: 1px solid #333;'>
                 <div style='display:flex; flex-direction:column; width:48%;'>{team1_html}</div>

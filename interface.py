@@ -46,6 +46,22 @@ import os
 BACKEND_URL = os.getenv("BACKEND_URL", "https://versus-lol.onrender.com")
 
 # ==========================================
+# 🔗 SINCRONIZAÇÃO DE NAVEGAÇÃO POR URL
+# ==========================================
+if "summoner" in st.query_params:
+    url_sum = st.query_params["summoner"]
+    if url_sum and url_sum != st.session_state.current_summoner:
+        st.session_state.current_summoner = url_sum
+        with st.spinner('Buscando perfil...'):
+            try:
+                res = requests.post(f"{BACKEND_URL}/history", json={"summoner": url_sum}, timeout=60)
+                if res.status_code == 200:
+                    st.session_state.player_data = res.json()
+                    st.session_state.view = 'resultado'
+            except requests.exceptions.RequestException: 
+                pass
+
+# ==========================================
 # 🎯 TELA 1: BUSCA
 # ==========================================
 if st.session_state.view == 'busca':
@@ -63,6 +79,7 @@ if st.session_state.view == 'busca':
                 btn_buscar = st.form_submit_button("🔍")
             
             if btn_buscar and summoner_id and '#' in summoner_id:
+                st.query_params["summoner"] = summoner_id # Atualiza a URL para link copiável
                 st.session_state.current_summoner = summoner_id 
                 
                 with st.spinner(''):
@@ -90,6 +107,7 @@ elif st.session_state.view == 'resultado':
     with header_col1: safe_html(f"<h2 style='margin-bottom:0; font-style:italic; color:#0ac8b9;'>OVERVIEW DE {p_name.upper()}</h2>")
     with header_col2:
         if st.button("⬅ NOVA BUSCA", use_container_width=True): 
+            if "summoner" in st.query_params: del st.query_params["summoner"]
             st.session_state.view = 'busca'
             st.rerun()
             
@@ -282,12 +300,12 @@ elif st.session_state.view == 'resultado':
                 
                 safe_html(f"""
                 <div style='display:flex; gap:12px; margin-top:5px; padding:0 10px 10px 10px;'>
-                    <div class='metric-card'><p class='metric-val'>{metrics['fb_pct']}%</p><p class='metric-lbl'>FIRST BLOOD</p></div>
-                    <div class='metric-card'><p class='metric-val'>{metrics['c_wards']}</p><p class='metric-lbl'>CTRL WARDS</p></div>
+                    <div class='metric-card' title='Porcentagem de jogos com participação no First Blood.'><p class='metric-val'>{metrics['fb_pct']}%</p><p class='metric-lbl'>FIRST BLOOD</p></div>
+                    <div class='metric-card' title='Média de Sentinelas de Controle (Pink Wards) compradas.'><p class='metric-val'>{metrics['c_wards']}</p><p class='metric-lbl'>CTRL WARDS</p></div>
                 </div>
                 <div style='display:flex; gap:12px; padding:0 10px 10px 10px;'>
-                    <div class='metric-card'><p class='metric-val'>{metrics['avg_vision']}</p><p class='metric-lbl'>AVG VISION</p></div>
-                    <div class='metric-card'><p class='metric-val'>{metrics['dpm']}</p><p class='metric-lbl'>AVG DPM</p></div>
+                    <div class='metric-card' title='Placar médio de visão (Wards colocadas e destruídas).'><p class='metric-val'>{metrics['avg_vision']}</p><p class='metric-lbl'>AVG VISION</p></div>
+                    <div class='metric-card' title='Dano médio causado a campeões por minuto.'><p class='metric-val'>{metrics['dpm']}</p><p class='metric-lbl'>AVG DPM</p></div>
                 </div>
                 """)
 
