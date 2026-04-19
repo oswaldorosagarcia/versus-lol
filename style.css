@@ -1,0 +1,122 @@
+.stApp { background-color: #0D0D0D; color: #EEEEEE; font-family: 'Arial', sans-serif; }
+h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 900 !important; text-transform: uppercase; }
+.lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 6rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: -4px 0px 0px #00BFFF, 4px 0px 0px #FF2A2A; }
+
+/* Remove a borda padrão do form */
+[data-testid="stForm"] { border: none !important; background: transparent !important; padding: 0 !important; }
+
+/* ========================================================= */
+/* 🔥 O TRUQUE: O Container vira a Barra de Pesquisa Única   */
+/* ========================================================= */
+[data-testid="stForm"] div[data-testid="stHorizontalBlock"] {
+    background-color: #000000 !important;
+    border: 2px solid #555555 !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    height: 65px !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important; /* Impede que lupa ou input vazem os cantos redondos */
+    transition: border-color 0.3s ease;
+}
+
+/* Brilha a borda da caixa inteira quando clica pra digitar */
+[data-testid="stForm"] div[data-testid="stHorizontalBlock"]:focus-within { border-color: #1E88E5 !important; }
+
+/* CAIXA DE TEXTO: Fica invisível por fora, só aparece a letra */
+[data-testid="stForm"] div[data-baseweb="input"] { background-color: transparent !important; border: none !important; }
+[data-testid="stForm"] div[data-baseweb="input"] > div { background-color: transparent !important; border: none !important; box-shadow: none !important;}
+[data-testid="stForm"] .stTextInput>div>div>input {
+    background-color: transparent !important;
+    border: none !important;
+    color: #FFFFFF !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    font-size: 1.5rem !important;
+    height: 65px !important;
+    box-shadow: none !important;
+    padding: 0 15px !important;
+}
+[data-testid="stForm"] .stTextInput>div>div>input::placeholder { color: #DDDDDD; }
+[data-testid="stForm"] .stTextInput>div>div>input:focus { box-shadow: none !important; border: none !important; }
+
+/* LUPA: Fica invisível por fora, vira apenas um ícone dentro da caixa maior */
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 65px !important; }
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] > button {
+    background-color: transparent !important;
+    border: none !important;
+    color: #FFFFFF !important;
+    height: 100% !important;
+    width: 100% !important;
+    font-size: 1.8rem !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] > button:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Leve brilho de fundo */
+    color: #0ac8b9 !important;
+    border: none !important;
+    transform: none !important; /* Remove o salto animado da lupa */
+}
+
+/* ========================================================= */
+/* BOTÕES GERAIS E CARDS (MANTIDOS INTACTOS)                 */
+/* ========================================================= */
+.stButton>button { background-color: #1A1A1A; border: 2px solid #333333; color: #FFFFFF; font-weight: 900; font-size: 1.2rem; font-style: italic; border-radius: 0px; box-shadow: 4px 4px 0px #000000; width:100%;}
+.stButton>button:hover { background-color: #FFFFFF; color: #000000; border-color: #FFFFFF; transform: translate(-2px, -2px); }
+.data-card { background-color: #1A1A1A; border: 1px solid #333333; padding: 15px; margin-bottom: 12px; border-radius: 4px;}
+.vs-logo { font-family: 'Impact', sans-serif; font-size: 6rem; color: #fff; text-shadow: 4px 4px 0 #D32F2F, -4px -4px 0 #1E88E5; font-style: italic; text-align: center; margin-top: 40px; }
+.badge { background-color: #222; border: 1px solid #555; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; color: #0ac8b9; font-weight: bold; margin-right: 8px; text-transform: uppercase; box-shadow: 2px 2px 0px #000;}
+
+.overview-header { display:flex; justify-content:space-between; align-items:center; border-top: 4px solid #1E88E5; padding: 25px; background: linear-gradient(135deg, #111, #1a1a1a); border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid #333; border-top: 4px solid #1E88E5;}
+.champ-row { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #222; padding:10px 8px; transition: all 0.2s ease; border-radius: 4px; }
+.champ-row:hover { background-color: rgba(255,255,255,0.05); border-color: #444; }
+.metric-card { background: linear-gradient(180deg, #1A1A1A, #111); border: 1px solid #333; padding: 10px; text-align: center; border-radius: 6px; flex: 1; box-shadow: 2px 2px 8px rgba(0,0,0,0.6); }
+.metric-val { font-size: 1.5rem; font-weight: 900; color: #FFF; margin: 0; text-shadow: 1px 1px 2px #000; }
+.metric-lbl { font-size: 0.65rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 4px;}
+
+/* ========================================================= */
+/* 🔥 DROPDOWN (SELECTBOX) E BOTÃO DE ANÁLISE                */
+/* ========================================================= */
+
+/* Fundo e Borda da Caixa de Seleção */
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    background-color: #1A1A1A !important;
+    border: 2px solid #333 !important;
+    border-radius: 0px !important;
+    box-shadow: 4px 4px 0px #000000 !important;
+    transition: all 0.2s ease;
+}
+[data-testid="stSelectbox"] div[data-baseweb="select"]:hover > div { border-color: #0ac8b9 !important; }
+
+/* Fonte Customizada do Campeão Selecionado */
+[data-testid="stSelectbox"] div[class*="singleValue"] {
+    color: #0ac8b9 !important;
+    font-weight: 900 !important;
+    font-size: 1.2rem !important;
+    font-style: italic !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+}
+
+/* Botão Primário Brutalista (Analisar Campeão) - ESTILO VERSUS.LOL */
+.stButton > button[kind="primary"] { 
+    background-color: #1A1A1A !important; 
+    border: 2px solid #0ac8b9 !important; 
+    color: #0ac8b9 !important; 
+    border-radius: 0px !important; 
+    box-shadow: 4px 4px 0px #000000 !important; 
+    font-weight: 900 !important;
+    font-style: italic !important;
+    text-transform: uppercase !important;
+}
+.stButton > button[kind="primary"]:hover { 
+    background-color: #0ac8b9 !important; 
+    color: #000000 !important; 
+    transform: translate(-2px, -2px) !important; 
+    box-shadow: 6px 6px 0px #000000 !important; 
+}
