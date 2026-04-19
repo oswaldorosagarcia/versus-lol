@@ -116,7 +116,21 @@ def build_overview_header_html(p_data):
     
     total_games = p_data.get('wins', 0) + p_data.get('losses', 0)
     winrate = round((p_data.get('wins', 0) / max(total_games, 1)) * 100) if total_games > 0 else 0
-    badges_html = "".join([f"<span class='badge'>{b}</span>" for b in dash['badges']])
+    
+    badge_styles = {
+        "KDA Player": ("⭐", "#FFD700", "rgba(255, 215, 0, 0.15)"),
+        "Damage Dealer": ("🔥", "#FF2A2A", "rgba(255, 42, 42, 0.15)"),
+        "Vision Focused": ("👁️", "#9d48e0", "rgba(157, 72, 224, 0.15)"),
+        "Early Aggressor": ("⚔️", "#FF8C00", "rgba(255, 140, 0, 0.15)"),
+        "Team Player": ("🤝", "#209b58", "rgba(32, 155, 88, 0.15)"),
+        "Objective Focused": ("🎯", "#1E88E5", "rgba(30, 136, 229, 0.15)")
+    }
+    
+    badges_html = ""
+    for b in dash['badges']:
+        icon, color, bg = badge_styles.get(b, ("✨", "#0ac8b9", "rgba(10, 200, 185, 0.15)"))
+        badges_html += f"<span class='profile-badge' style='background-color: {bg}; border: 1px solid {color}66; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: {color}; font-weight: 900; text-transform: uppercase; box-shadow: 0 4px 10px {bg}; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.5px;'><span style='font-size: 1rem;'>{icon}</span> {b}</span>"
+
     win_color = "#0ac8b9" if winrate >= 50 else "#D32F2F"
 
     return f"""
@@ -125,7 +139,7 @@ def build_overview_header_html(p_data):
             <img src='{icon_url}' width='100' style='border: 3px solid #333; border-radius: 24px; box-shadow: 0 0 15px rgba(0,0,0,0.5);'>
             <div>
                 <h1 style='margin:0 0 5px 0; color:#FFF !important; font-size: 2.2rem; letter-spacing: 1px;'>{p_data['player']} <span style='color:#888; font-size: 1.4rem; text-transform:none; font-weight: normal;'>#{p_data.get('tag', '')}</span></h1>
-                <div style='margin-top:12px;'>{badges_html}</div>
+                <div style='margin-top:12px; display: flex; flex-wrap: wrap; gap: 8px;'>{badges_html}</div>
             </div>
         </div>
         <div style='display:flex; align-items:center; gap:20px; border-left: 1px solid #333; padding-left:30px;'>
