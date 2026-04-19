@@ -28,8 +28,11 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 [data-testid="stForm"] div[data-testid="stHorizontalBlock"]:focus-within { border-color: #0ac8b9 !important; box-shadow: 0 0 20px rgba(10, 200, 185, 0.2) !important; }
 
 /* CAIXA DE TEXTO: Fica invisível por fora, só aparece a letra */
-[data-testid="stForm"] div[data-baseweb="input"] { background-color: transparent !important; border: none !important; }
-[data-testid="stForm"] div[data-baseweb="input"] > div { background-color: transparent !important; border: none !important; box-shadow: none !important;}
+[data-testid="stForm"] label { display: none !important; } /* Mata o espaço da label oculta nativa do Streamlit */
+[data-testid="stForm"] .stTextInput { padding: 0 !important; margin: 0 !important; }
+[data-testid="stForm"] div[data-baseweb="input"], 
+[data-testid="stForm"] div[data-baseweb="input"] > div,
+[data-testid="stForm"] div[data-baseweb="base-input"] { background-color: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
 [data-testid="stForm"] .stTextInput>div>div>input {
     background-color: transparent !important;
     border: none !important;
@@ -38,7 +41,6 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
     text-align: center !important;
     font-size: 1.5rem !important;
     height: 65px !important;
-    line-height: 65px !important; /* Centraliza o texto perfeitamente na vertical */
     box-shadow: none !important;
     padding: 0 15px !important;
     margin: 0 !important;
