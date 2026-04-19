@@ -28,11 +28,13 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 [data-testid="stForm"] div[data-testid="stHorizontalBlock"]:focus-within { border-color: #0ac8b9 !important; box-shadow: 0 0 20px rgba(10, 200, 185, 0.2) !important; }
 
 /* CAIXA DE TEXTO: Fica invisível por fora, só aparece a letra */
-[data-testid="stForm"] label { display: none !important; } /* Mata o espaço da label oculta nativa do Streamlit */
-[data-testid="stForm"] .stTextInput { padding: 0 !important; margin: 0 !important; }
+[data-testid="stForm"] div[data-testid="stWidgetLabel"], 
+[data-testid="stForm"] div[data-testid="InputInstructions"], 
+[data-testid="stForm"] label { display: none !important; height: 0 !important; margin: 0 !important; padding: 0 !important; }
+[data-testid="stForm"] .stTextInput { padding: 0 !important; margin: 0 !important; height: 65px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
 [data-testid="stForm"] div[data-baseweb="input"], 
 [data-testid="stForm"] div[data-baseweb="input"] > div,
-[data-testid="stForm"] div[data-baseweb="base-input"] { background-color: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+[data-testid="stForm"] div[data-baseweb="base-input"] { background-color: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; height: 100% !important; }
 [data-testid="stForm"] .stTextInput>div>div>input {
     background-color: transparent !important;
     border: none !important;
@@ -40,7 +42,8 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
     font-weight: 900 !important;
     text-align: center !important;
     font-size: 1.5rem !important;
-    height: 65px !important;
+    height: 100% !important;
+    line-height: normal !important;
     box-shadow: none !important;
     padding: 0 15px !important;
     margin: 0 !important;
