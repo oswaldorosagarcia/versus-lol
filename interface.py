@@ -153,7 +153,7 @@ elif st.session_state.view == 'resultado':
         with dash_c1:
             with st.container(border=True):
                 safe_html(f"<div style='text-align:center; margin: 10px 0;'><h4 style='color:#FFF; font-size:0.9rem; font-weight:900; letter-spacing:1px; margin:0;'>RECENT CHAMPIONS</h4></div>")
-                ch_h = "<div style='height: 290px; background-color: #111; border: 1px solid #333; border-radius: 6px; padding: 10px; overflow-y: auto; overflow-x: hidden;'>"
+                ch_h = "<div style='height: 290px; background-color: rgba(17,17,17,0.5); border: 1px solid #333; border-radius: 16px; padding: 10px; overflow-y: auto; overflow-x: hidden; backdrop-filter: blur(5px);'>"
                 for c, s in sorted(dash_champs.items(), key=lambda x: x[1]['games'], reverse=True):
                     wr = round((s['wins']/s['games'])*100)
                     kc = "#1E88E5" if wr>=50 else "#D32F2F"
@@ -280,11 +280,11 @@ elif st.session_state.view == 'resultado':
                 st.plotly_chart(fig_l, use_container_width=True, config={'displayModeBar': False})
                 
                 safe_html(f"""
-                <div style='display:flex; gap:8px; margin-top:5px; padding:0 10px 10px 10px;'>
+                <div style='display:flex; gap:12px; margin-top:5px; padding:0 10px 10px 10px;'>
                     <div class='metric-card'><p class='metric-val'>{metrics['fb_pct']}%</p><p class='metric-lbl'>FIRST BLOOD</p></div>
                     <div class='metric-card'><p class='metric-val'>{metrics['c_wards']}</p><p class='metric-lbl'>CTRL WARDS</p></div>
                 </div>
-                <div style='display:flex; gap:8px; padding:0 10px 10px 10px;'>
+                <div style='display:flex; gap:12px; padding:0 10px 10px 10px;'>
                     <div class='metric-card'><p class='metric-val'>{metrics['avg_vision']}</p><p class='metric-lbl'>AVG VISION</p></div>
                     <div class='metric-card'><p class='metric-val'>{metrics['dpm']}</p><p class='metric-lbl'>AVG DPM</p></div>
                 </div>
@@ -302,7 +302,7 @@ elif st.session_state.view == 'resultado':
                 st.rerun()
 
     with col_a: 
-        safe_html("<div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 250px; display:flex; flex-direction:column; justify-content:center; border-radius:4px;'><h3>ADVERTISEMENT</h3><p>300x250</p></div>")
+        safe_html("<div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 250px; display:flex; flex-direction:column; justify-content:center; border-radius:16px;'><h3>ADVERTISEMENT</h3><p>300x250</p></div>")
 
 # ==========================================
 # ⚔️ TELA 3: O DUELO ABSOLUTO
@@ -327,7 +327,7 @@ elif st.session_state.view == 'duelo':
         
         v_txt = a.get('veredito', 'Duelo')
         v_c = "#1E88E5" if "AMASSOU" in v_txt else ("#D32F2F" if "DOMINADO" in v_txt else "#FFFFFF")
-        safe_html(f"<div style='text-align:center; padding:20px; background:linear-gradient(90deg, transparent, {v_c}44, transparent); border-top: 2px solid {v_c}; border-bottom: 2px solid {v_c}; margin-bottom:30px;'><h1 style='color:{v_c} !important; font-size:3.5rem; letter-spacing:4px; text-shadow: 0 0 20px {v_c}66;'>{v_txt}</h1></div>")
+        safe_html(f"<div style='text-align:center; padding:20px; background:linear-gradient(90deg, transparent, {v_c}44, transparent); border-radius: 16px; border: 1px solid {v_c}88; margin-bottom:30px; box-shadow: 0 0 30px {v_c}33;'><h1 style='color:{v_c} !important; font-size:3.5rem; letter-spacing:4px; text-shadow: 0 0 20px {v_c}66; margin:0;'>{v_txt}</h1></div>")
 
         c_j, c_v, c_r = st.columns([2, 1, 2])
         with c_j:
@@ -363,7 +363,7 @@ elif st.session_state.view == 'champ_stats':
     
     h_c1, h_c2, h_c3 = st.columns([3, 2, 1])
     with h_c1: 
-        safe_html(f"<div style='display:flex; align-items:center; gap:15px;'><img src='{get_champ_img(c_name)}' width='60' style='border-radius:10px; border:2px solid #1E88E5;'><h2 style='margin:0; font-style:italic;'>DESEMPENHO COM {c_name.upper()}</h2></div>")
+        safe_html(f"<div style='display:flex; align-items:center; gap:15px;'><img src='{get_champ_img(c_name)}' width='60' style='border-radius:16px; border:2px solid #1E88E5; box-shadow: 0 4px 10px rgba(30,136,229,0.3);'><h2 style='margin:0; font-style:italic;'>DESEMPENHO COM {c_name.upper()}</h2></div>")
     with h_c2:
         queues = sorted(list(set(g.get('queue', 'Unknown') for g in p_data['history'] if g['champion'] == c_name)))
         if len(queues) > 1:

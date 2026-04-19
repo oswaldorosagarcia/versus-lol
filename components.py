@@ -67,9 +67,9 @@ def build_item_html(items):
     html = "<div style='display:flex; gap:2px; justify-content:center; margin-top:5px;'>"
     for item in items:
         if item == 0: 
-            html += "<div style='width:28px; height:28px; background-color:rgba(0,0,0,0.5); border:1px solid #333; border-radius:3px;'></div>"
+            html += "<div style='width:28px; height:28px; background-color:rgba(0,0,0,0.5); border:1px solid #333; border-radius:8px;'></div>"
         else: 
-            html += f"<img src='https://ddragon.leagueoflegends.com/cdn/15.4.1/img/item/{item}.png' width='28' height='28' style='border:1px solid #555; border-radius:3px;'>"
+            html += f"<img src='https://ddragon.leagueoflegends.com/cdn/15.4.1/img/item/{item}.png' width='28' height='28' style='border:1px solid #555; border-radius:8px;'>"
     return html + "</div>"
 
 def build_stat_bar(label, val1, val2, suffix="", invert_colors=False):
@@ -85,7 +85,7 @@ def build_stat_bar(label, val1, val2, suffix="", invert_colors=False):
             <span style="color:#FFF; font-weight:bold; font-style:italic; font-size:0.9rem; letter-spacing: 1px;">{label}</span>
             <span style="color:{c2}; font-weight:900; font-size:1.3rem;">{s2}{suffix}</span>
         </div>
-        <div style="display:flex; width:100%; height:12px; background-color:#111; overflow:hidden; border: 1px solid #333;">
+        <div style="display:flex; width:100%; height:12px; background-color:#111; overflow:hidden; border: 1px solid #333; border-radius: 8px;">
             <div style="width:{pct1}%; background-color:#1E88E5; border-right: 2px solid #000;"></div>
             <div style="width:{pct2}%; background-color:#D32F2F;"></div>
         </div>
@@ -93,10 +93,10 @@ def build_stat_bar(label, val1, val2, suffix="", invert_colors=False):
     """
 
 ADS_HTML = """
-<div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 250px; display:flex; flex-direction:column; justify-content:center; border-radius:4px;'>
+<div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 250px; display:flex; flex-direction:column; justify-content:center; border-radius:16px;'>
     <h3>ADVERTISEMENT</h3><p>300x250</p>
 </div>
-<div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 600px; display:flex; flex-direction:column; justify-content:center; border-radius:4px;'>
+<div style='background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px); border: 2px dashed #555; padding: 40px 20px; text-align: center; margin-bottom: 20px; color: #555; font-weight: 900; font-style: italic; min-height: 600px; display:flex; flex-direction:column; justify-content:center; border-radius:16px;'>
     <h3>ADVERTISEMENT</h3><p>300x600<br>Premium Space</p>
 </div>
 """
@@ -122,7 +122,7 @@ def build_overview_header_html(p_data):
     return f"""
     <div class='overview-header' style='margin-bottom: 20px;'>
         <div style='display:flex; align-items:center; gap:25px;'>
-            <img src='{icon_url}' width='100' style='border: 3px solid #333; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.8);'>
+            <img src='{icon_url}' width='100' style='border: 3px solid #333; border-radius: 24px; box-shadow: 0 0 15px rgba(0,0,0,0.5);'>
             <div>
                 <h1 style='margin:0 0 5px 0; color:#FFF !important; font-size: 2.2rem; letter-spacing: 1px;'>{p_data['player']} <span style='color:#888; font-size: 1.4rem; text-transform:none; font-weight: normal;'>#{p_data.get('tag', '')}</span></h1>
                 <div style='margin-top:12px;'>{badges_html}</div>
@@ -137,8 +137,8 @@ def build_overview_header_html(p_data):
                     <span style='color:#AAA;'>{p_data.get('wins', 0)}W {p_data.get('losses', 0)}L</span>
                     <span style='color:{win_color}; font-weight:900;'>{winrate}% WR</span>
                 </div>
-                <div style='width:100%; height:8px; background:#222; border-radius:4px; margin-top:4px; border: 1px solid #111;'>
-                    <div style='width:{winrate}%; height:100%; background:{win_color}; border-radius:4px; box-shadow: 0 0 5px {win_color};'></div>
+                <div style='width:100%; height:8px; background:#222; border-radius:8px; margin-top:4px; border: 1px solid #111;'>
+                    <div style='width:{winrate}%; height:100%; background:{win_color}; border-radius:8px; box-shadow: 0 0 8px {win_color};'></div>
                 </div>
             </div>
         </div>
@@ -149,7 +149,7 @@ def build_match_card_html(g):
     is_w = g['win']
     b_c = "#1E88E5" if is_w else "#D32F2F"
     r_b_c = "#D32F2F" if is_w else "#1E88E5"
-    st_b = f"<span style='background-color: {'rgba(30,136,229,0.2)' if is_w else 'rgba(211,47,47,0.2)'}; color: {b_c}; padding: 4px 8px; border-radius: 4px; font-weight: 900; font-size: 0.85rem; letter-spacing: 1px;'>{'VITÓRIA' if is_w else 'DERROTA'}</span>"
+    st_b = f"<span style='background-color: {'rgba(30,136,229,0.2)' if is_w else 'rgba(211,47,47,0.2)'}; color: {b_c}; padding: 4px 10px; border-radius: 12px; font-weight: 900; font-size: 0.85rem; letter-spacing: 1px;'>{'VITÓRIA' if is_w else 'DERROTA'}</span>"
     
     csm = round(g['cs'] / max(g['duration']/60, 1), 1)
     kda_ratio = round((g['kills'] + g['assists']) / max(g['deaths'], 1), 2)
@@ -159,10 +159,10 @@ def build_match_card_html(g):
     elif kda_ratio >= 2.0: kda_color = "#1E88E5" 
     else: kda_color = "#888"    
     
-    team1_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;'><img src='{get_champ_img(p['champ'])}' width='16' height='16' style='border-radius:3px;'><span style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:65px;' title='{p['name']}'>{p['name']}</span></div>" for p in g['team100']])
-    team2_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;'><img src='{get_champ_img(p['champ'])}' width='16' height='16' style='border-radius:3px;'><span style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:65px;' title='{p['name']}'>{p['name']}</span></div>" for p in g['team200']])
+    team1_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;'><img src='{get_champ_img(p['champ'])}' width='16' height='16' style='border-radius:6px;'><span style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:65px;' title='{p['name']}'>{p['name']}</span></div>" for p in g['team100']])
+    team2_html = "".join([f"<div style='display:flex; align-items:center; gap:4px; margin-bottom:2px;'><img src='{get_champ_img(p['champ'])}' width='16' height='16' style='border-radius:6px;'><span style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:65px;' title='{p['name']}'>{p['name']}</span></div>" for p in g['team200']])
     
-    feedbacks_html = "".join([f"<span style='background-color:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#DDD; font-size:0.65rem; padding:3px 8px; border-radius:12px; font-weight:bold; letter-spacing:0.5px;'>{f}</span>" for f in g.get('feedbacks', [])])
+    feedbacks_html = "".join([f"<span style='background-color:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#DDD; font-size:0.65rem; padding:4px 10px; border-radius:20px; font-weight:bold; letter-spacing:0.5px;'>{f}</span>" for f in g.get('feedbacks', [])])
 
     return f"""
     <div class='data-card' style='border-left: 8px solid {b_c}; background-color: rgba(255,255,255,0.02); padding: 0;'>
@@ -179,8 +179,8 @@ def build_match_card_html(g):
                     <div style='position:absolute; bottom:-3px; right:-3px; background:#000; color:#FFF; font-size:0.6rem; font-weight:bold; border-radius:50%; border:1px solid {b_c}; width:20px; height:20px; display:flex; align-items:center; justify-content:center;'>{g.get('level', 1)}</div>
                 </div>
                 <div style='display:flex; flex-direction:column; gap:2px;'>
-                    <img src='{get_spell_img(g.get("spells", [4,4])[0])}' width='22' style='border-radius:3px;'>
-                    <img src='{get_spell_img(g.get("spells", [4,4])[1])}' width='22' style='border-radius:3px;'>
+                    <img src='{get_spell_img(g.get("spells", [4,4])[0])}' width='22' style='border-radius:6px;'>
+                    <img src='{get_spell_img(g.get("spells", [4,4])[1])}' width='22' style='border-radius:6px;'>
                 </div>
                 <div style='display:flex; flex-direction:row; gap:1px;'>
                     {get_rune_html(g.get('runes', {}).get('primary', 8100))} 
@@ -207,7 +207,7 @@ def build_match_card_html(g):
                 <div style='display:flex; flex-direction:column; width:48%;'>{team2_html}</div>
             </div>
         </div>
-        <div style='padding: 6px 12px; background-color: rgba(0,0,0,0.3); border-top: 1px solid #222; display:flex; flex-wrap:wrap; gap:6px;'>
+        <div style='padding: 8px 12px; background-color: rgba(0,0,0,0.3); border-top: 1px solid #222; display:flex; flex-wrap:wrap; gap:6px; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;'>
             {feedbacks_html}
         </div>
     </div>
