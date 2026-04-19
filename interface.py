@@ -177,32 +177,37 @@ elif st.session_state.view == 'resultado':
         with dash_c1:
             with st.container(border=True):
                 safe_html(f"<div style='text-align:center; margin: 10px 0;'><h4 style='color:#FFF; font-size:1.2rem; font-weight:900; letter-spacing:1px; margin:0;'>RECENT CHAMPIONS</h4></div>")
-                ch_h = "<div style='height: 240px; background-color: rgba(17,17,17,0.5); border: 1px solid #333; border-radius: 16px; padding: 10px; overflow-y: auto; overflow-x: hidden; backdrop-filter: blur(5px);'>"
-                for c, s in sorted(dash_champs.items(), key=lambda x: x[1]['games'], reverse=True):
-                    wr = round((s['wins']/s['games'])*100)
-                    kc = "#1E88E5" if wr>=50 else "#D32F2F"
-                    ch_h += f"""
-                    <div class='champ-row'>
-                        <div style='display:flex; align-items:center; gap:12px;'>
-                            <img src='{get_champ_img(c)}' width='56' style='border-radius:50%; box-shadow: 0 0 5px rgba(0,0,0,0.5);'>
-                            <div>
-                                <p style='margin:0; color:#FFF; font-weight:bold; font-size:1.3rem;'>{c}</p>
-                                <p style='margin:0; color:#888; font-size:1rem;'>{s['games']} Played</p>
-                            </div>
-                        </div>
-                        <div style='text-align:right;'>
-                            <p style='margin:0; font-weight:900; color:{kc}; font-size:1.5rem;'>{wr}% WR</p>
-                        </div>
-                    </div>
-                    """
-                safe_html(ch_h + "</div>")
                 
                 most_played = sorted(dash_champs.items(), key=lambda x: x[1]['games'], reverse=True)
-                if most_played:
+                
+                if st.session_state.selected_champion not in [c[0] for c in most_played]:
+                    st.session_state.selected_champion = most_played[0][0] if most_played else None
+
+                with st.container(height=240):
+                    for c, s in most_played:
+                        wr = round((s['wins']/s['games'])*100)
+                        kc = "#1E88E5" if wr>=50 else "#D32F2F"
+                        
+                        is_selected = (st.session_state.selected_champion == c)
+                        img_style = "border: 2px solid #0ac8b9;" if is_selected else "border: 2px solid transparent;"
+                        
+                        with st.container():
+                            safe_html("<div class='champ-row-marker'></div>")
+                            safe_html(f"<img src='{get_champ_img(c)}' width='50' style='border-radius:50%; box-shadow: 0 0 5px rgba(0,0,0,0.5); {img_style}'>")
+                            
+                            with st.container():
+                                safe_html("<div class='champ-mid-marker'></div>")
+                                if st.button(c, key=f"btn_{c}", use_container_width=True):
+                                    st.session_state.selected_champion = c
+                                    st.rerun()
+                                safe_html(f"<p style='margin:0; color:#888; font-size:0.9rem;'>{s['games']} Played</p>")
+                                
+                            safe_html(f"<div style='text-align:right;'><p style='margin:0; font-weight:900; color:{kc}; font-size:1.2rem;'>{wr}% WR</p></div>")
+                
+                if most_played and st.session_state.selected_champion:
                     safe_html("<hr style='border-color:#333; margin:15px 0 10px 0;'><div style='text-align:center; margin-bottom:10px;'><h4 style='color:#0ac8b9; font-size:1rem; font-weight:900; letter-spacing:1px; margin:0;'>DEEP DIVE DO CAMPEÃO</h4></div>")
-                    sel_champ = st.selectbox("Selecione o campeão:", [c[0] for c in most_played], label_visibility="collapsed")
-                    if st.button(f"📈 ANALISAR {sel_champ.upper()}", type="primary", use_container_width=True):
-                        st.session_state.main_champ = sel_champ
+                    if st.button(f"📈 ANALISAR {st.session_state.selected_champion.upper()}", type="primary", use_container_width=True):
+                        st.session_state.main_champ = st.session_state.selected_champion
                         st.session_state.view = 'champ_stats'
                         st.rerun()
                         

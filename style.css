@@ -78,6 +78,39 @@ div[data-testid="stScrollableContainer"] {
     padding: 10px !important;
     backdrop-filter: blur(5px) !important;
 }
+/* Truque CSS Flexbox para simular colunas nativas ignorando o limite de aninhamento */
+div[data-testid="stVerticalBlock"]:has(> div.element-container > div.stMarkdown:has(.champ-row-marker)) {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background-color: transparent;
+    border-bottom: 1px solid #222;
+    padding: 8px 6px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    gap: 12px;
+}
+div[data-testid="stVerticalBlock"]:has(> div.element-container > div.stMarkdown:has(.champ-row-marker)):hover {
+    background-color: rgba(255,255,255,0.05);
+    border-color: #444;
+    transform: translateX(3px);
+}
+div[data-testid="stVerticalBlock"] > div.element-container:has(.champ-row-marker) { display: none !important; }
+
+div[data-testid="stVerticalBlock"]:has(> div.element-container > div.stMarkdown:has(.champ-mid-marker)) {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    width: 100% !important;
+}
+div[data-testid="stVerticalBlock"] > div.element-container:has(.champ-mid-marker) { display: none !important; }
+
+/* Expande a área central para que a Winrate vá totalmente para a direita */
+div[data-testid="stVerticalBlock"]:has(> div.element-container > div.stMarkdown:has(.champ-row-marker)) > div.element-container:nth-child(3) {
+    flex-grow: 1 !important;
+}
 div[data-testid="stScrollableContainer"] button[kind="secondary"] {
     background-color: transparent !important;
     border: none !important;
@@ -95,7 +128,7 @@ div[data-testid="stScrollableContainer"] button[kind="secondary"] {
 div[data-testid="stScrollableContainer"] button[kind="secondary"]:hover,
 div[data-testid="stScrollableContainer"] button[kind="secondary"]:focus {
     color: #0ac8b9 !important;
-    transform: translateX(3px) !important;
+    transform: none !important;
     background-color: transparent !important;
 }
 
