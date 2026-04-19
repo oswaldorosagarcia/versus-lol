@@ -43,7 +43,11 @@ if 'match_id' not in st.session_state: st.session_state.match_id = ""
 if 'main_champ' not in st.session_state: st.session_state.main_champ = ""
 
 import os
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000")
+
+try:
+    BACKEND_URL = st.secrets["BACKEND_URL"].rstrip("/")
+except:
+    BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000").rstrip("/")
 
 # ==========================================
 # 🎯 TELA 1: BUSCA
