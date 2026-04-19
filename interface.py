@@ -94,7 +94,7 @@ elif st.session_state.view == 'resultado':
             st.rerun()
             
     st.write("---")
-    col_c, col_g, col_a = st.columns([11, 0.5, 4])
+    col_c, col_g, col_a = st.columns([10, 0.5, 4.5])
     
     with col_c:
         p_data = st.session_state.player_data
@@ -154,7 +154,7 @@ elif st.session_state.view == 'resultado':
         with dash_c1:
             with st.container(border=True):
                 safe_html(f"<div style='text-align:center; margin: 10px 0;'><h4 style='color:#FFF; font-size:0.9rem; font-weight:900; letter-spacing:1px; margin:0;'>RECENT CHAMPIONS</h4></div>")
-                ch_h = "<div style='height: 290px; background-color: rgba(17,17,17,0.5); border: 1px solid #333; border-radius: 16px; padding: 10px; overflow-y: auto; overflow-x: hidden; backdrop-filter: blur(5px);'>"
+                ch_h = "<div style='height: 240px; background-color: rgba(17,17,17,0.5); border: 1px solid #333; border-radius: 16px; padding: 10px; overflow-y: auto; overflow-x: hidden; backdrop-filter: blur(5px);'>"
                 for c, s in sorted(dash_champs.items(), key=lambda x: x[1]['games'], reverse=True):
                     wr = round((s['wins']/s['games'])*100)
                     kc = "#1E88E5" if wr>=50 else "#D32F2F"
@@ -207,7 +207,7 @@ elif st.session_state.view == 'resultado':
                         bgcolor='rgba(0,0,0,0)'
                     ), 
                     showlegend=False, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
-                    margin=dict(l=40, r=40, t=10, b=20), font=dict(color='#AAA', size=11, family="Arial"), height=290
+                margin=dict(l=40, r=40, t=10, b=20), font=dict(color='#AAA', size=10, family="Arial"), height=240
                 )
                 st.plotly_chart(fig_r, use_container_width=True, config={'displayModeBar': False})
                 
@@ -275,7 +275,7 @@ elif st.session_state.view == 'resultado':
                     paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
                     xaxis=dict(visible=True, showgrid=False, tickmode='array', tickvals=[1, len(abs_path)//2, len(abs_path)], ticktext=[f"{max(1, len(abs_path)-1)} games ago", str(max(1, (len(abs_path)-1)//2)), "Last game"], tickfont=dict(color='#666', size=10), rangeslider=dict(visible=True, thickness=0.1, bordercolor="#333", borderwidth=1, bgcolor="#000")), 
                     yaxis=dict(visible=True, showgrid=True, gridcolor='#333', griddash='dot', zeroline=False, range=[y_min - 20, y_max + 20], tickmode='array', tickvals=tick_vals, ticktext=tick_texts, tickfont=dict(size=11)), 
-                    margin=dict(l=10, r=10, t=10, b=10), height=200
+                margin=dict(l=10, r=10, t=10, b=10), height=160
                 )
                 
                 st.plotly_chart(fig_l, use_container_width=True, config={'displayModeBar': False})
@@ -425,7 +425,7 @@ elif st.session_state.view == 'champ_stats':
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#FFF'), 
                 xaxis=dict(showgrid=False, type='category'), 
                 yaxis=dict(showgrid=True, gridcolor='#333', griddash='dot', zeroline=False), 
-                margin=dict(t=40, b=20, l=0, r=0), height=320, bargap=0.3
+                margin=dict(t=40, b=20, l=0, r=0), height=260, bargap=0.3
             )
             if kda_vals: 
                 fig_kda.update_yaxes(range=[0, max(kda_vals) * 1.3])
@@ -446,7 +446,7 @@ elif st.session_state.view == 'champ_stats':
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#FFF'), 
                 xaxis=dict(showgrid=False, type='category'), 
                 yaxis=dict(showgrid=True, gridcolor='#333', griddash='dot', zeroline=False), 
-                margin=dict(t=40, b=20, l=0, r=0), height=320, bargap=0.3
+                margin=dict(t=40, b=20, l=0, r=0), height=260, bargap=0.3
             )
             if cs_min_vals: 
                 fig_cs.update_yaxes(range=[0, max(cs_min_vals) * 1.3])

@@ -1,7 +1,7 @@
-html { zoom: 0.85; } /* Reduz a escala geral do site para tirar a sensação de "zoom" */
+html { zoom: 0.75; } /* Reduz a escala geral do site para tirar a sensação de "zoom" */
 .stApp { background-color: #0A0A0C; color: #EEEEEE; font-family: 'Inter', 'Segoe UI', sans-serif; }
 h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-transform: uppercase; letter-spacing: 0.5px; }
-.lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 6rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: 0 0 20px rgba(0, 191, 255, 0.6), 0 0 40px rgba(255, 42, 42, 0.4); }
+.lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 4.5rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: 0 0 20px rgba(0, 191, 255, 0.6), 0 0 40px rgba(255, 42, 42, 0.4); }
 
 /* Remove a borda padrão do form */
 [data-testid="stForm"] { border: none !important; background: transparent !important; padding: 0 !important; }
@@ -16,7 +16,7 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
     padding: 0 !important;
     margin: 0 !important;
     gap: 0 !important;
-    height: 65px !important;
+    height: 50px !important;
     display: flex !important;
     align-items: center !important;
     overflow: hidden !important; /* Impede que lupa ou input vazem os cantos redondos */
@@ -31,7 +31,7 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 [data-testid="stForm"] div[data-testid="stWidgetLabel"], 
 [data-testid="stForm"] div[data-testid="InputInstructions"], 
 [data-testid="stForm"] label { display: none !important; height: 0 !important; margin: 0 !important; padding: 0 !important; }
-[data-testid="stForm"] .stTextInput { padding: 0 !important; margin: 0 !important; height: 65px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
+[data-testid="stForm"] .stTextInput { padding: 0 !important; margin: 0 !important; height: 50px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
 [data-testid="stForm"] div[data-baseweb="input"], 
 [data-testid="stForm"] div[data-baseweb="input"] > div,
 [data-testid="stForm"] div[data-baseweb="base-input"] { background-color: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; height: 100% !important; }
@@ -41,7 +41,7 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
     color: #FFFFFF !important;
     font-weight: 900 !important;
     text-align: center !important;
-    font-size: 1.5rem !important;
+    font-size: 1.2rem !important;
     height: 100% !important;
     line-height: normal !important;
     box-shadow: none !important;
@@ -52,14 +52,14 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 [data-testid="stForm"] .stTextInput>div>div>input:focus { box-shadow: none !important; border: none !important; }
 
 /* LUPA: Fica invisível por fora, vira apenas um ícone dentro da caixa maior */
-[data-testid="stForm"] [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 65px !important; }
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 50px !important; }
 [data-testid="stForm"] [data-testid="stFormSubmitButton"] > button {
     background-color: transparent !important;
     border: none !important;
     color: #FFFFFF !important;
     height: 100% !important;
     width: 100% !important;
-    font-size: 1.8rem !important;
+    font-size: 1.4rem !important;
     box-shadow: none !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -75,20 +75,20 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 /* ========================================================= */
 /* BOTÕES GERAIS E CARDS (MANTIDOS INTACTOS)                 */
 /* ========================================================= */
-.stButton>button { background-color: #1A1A1A; border: 1px solid #444; color: #FFFFFF; font-weight: 800; font-size: 1.1rem; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); width:100%; transition: all 0.3s ease; }
+.stButton>button { background-color: #1A1A1A; border: 1px solid #444; color: #FFFFFF; font-weight: 800; font-size: 0.95rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); width:100%; transition: all 0.3s ease; padding: 0.25rem 0.5rem !important;}
 .stButton>button:hover { background-color: #2A2A2A; color: #0ac8b9; border-color: #0ac8b9; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(10, 200, 185, 0.2); }
 .data-card { background: rgba(26, 26, 26, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); padding: 15px; margin-bottom: 12px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-.vs-logo { font-family: 'Impact', sans-serif; font-size: 6rem; color: #fff; text-shadow: 0 0 20px rgba(211,47,47,0.6), 0 0 40px rgba(30,136,229,0.4); font-style: italic; text-align: center; margin-top: 40px; }
+.vs-logo { font-family: 'Impact', sans-serif; font-size: 4rem; color: #fff; text-shadow: 0 0 20px rgba(211,47,47,0.6), 0 0 40px rgba(30,136,229,0.4); font-style: italic; text-align: center; margin-top: 20px; }
 
 .profile-badge { transition: all 0.3s ease; cursor: default; }
 .profile-badge:hover { transform: translateY(-3px); filter: brightness(1.2); }
 
-.overview-header { display:flex; justify-content:space-between; align-items:center; border-top: 4px solid #1E88E5; padding: 25px; background: linear-gradient(135deg, #151515, #1a1a1a); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
+.overview-header { display:flex; justify-content:space-between; align-items:center; border-top: 4px solid #1E88E5; padding: 20px; background: linear-gradient(135deg, #151515, #1a1a1a); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
 .champ-row { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #222; padding:10px 8px; transition: all 0.2s ease; border-radius: 12px; }
 .champ-row:hover { background-color: rgba(255,255,255,0.05); border-color: #444; transform: translateX(4px); }
 .metric-card { background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(255,255,255,0.05); padding: 10px; text-align: center; border-radius: 16px; flex: 1; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
 .metric-card:hover { transform: translateY(-2px); border-color: rgba(10, 200, 185, 0.3); }
-.metric-val { font-size: 1.5rem; font-weight: 900; color: #FFF; margin: 0; }
+.metric-val { font-size: 1.2rem; font-weight: 900; color: #FFF; margin: 0; }
 .metric-lbl { font-size: 0.65rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 4px;}
 
 /* ========================================================= */
@@ -109,7 +109,7 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 [data-testid="stSelectbox"] div[class*="singleValue"] {
     color: #0ac8b9 !important;
     font-weight: 900 !important;
-    font-size: 1.2rem !important;
+    font-size: 1rem !important;
     font-style: italic !important;
     letter-spacing: 1px !important;
     text-transform: uppercase !important;
