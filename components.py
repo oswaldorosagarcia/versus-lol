@@ -119,18 +119,18 @@ def build_overview_header_html(p_data):
     status_msg = "🔥 Jogador em chamas!" if winrate >= 60 else ("📈 Escalando de forma constante." if winrate >= 50 else "🧊 Fase fria, precisa focar mais.")
     
     badge_styles = {
-        "KDA Player": ("⭐", "#FFD700", "rgba(255, 215, 0, 0.15)"),
-        "Damage Dealer": ("🔥", "#FF2A2A", "rgba(255, 42, 42, 0.15)"),
-        "Vision Focused": ("👁️", "#9d48e0", "rgba(157, 72, 224, 0.15)"),
-        "Early Aggressor": ("⚔️", "#FF8C00", "rgba(255, 140, 0, 0.15)"),
-        "Team Player": ("🤝", "#209b58", "rgba(32, 155, 88, 0.15)"),
-        "Objective Focused": ("🎯", "#1E88E5", "rgba(30, 136, 229, 0.15)")
+        "KDA Player": ("⭐", "#FFD700", "rgba(255, 215, 0, 0.15)", "KDA médio superior a 3.5 nas últimas partidas."),
+        "Damage Dealer": ("🔥", "#FF2A2A", "rgba(255, 42, 42, 0.15)", "Causou mais de 600 de Dano por Minuto (DPM)."),
+        "Vision Focused": ("👁️", "#9d48e0", "rgba(157, 72, 224, 0.15)", "Média de mais de 2 Control Wards compradas por partida."),
+        "Early Aggressor": ("⚔️", "#FF8C00", "rgba(255, 140, 0, 0.15)", "Alta taxa de participação em First Bloods (>20%)."),
+        "Team Player": ("🤝", "#209b58", "rgba(32, 155, 88, 0.15)", "Jogou focando na equipe e mapa."),
+        "Objective Focused": ("🎯", "#1E88E5", "rgba(30, 136, 229, 0.15)", "Foco consistente em levar objetivos globais.")
     }
     
     badges_html = ""
     for b in dash['badges']:
-        icon, color, bg = badge_styles.get(b, ("✨", "#0ac8b9", "rgba(10, 200, 185, 0.15)"))
-        badges_html += f"<span class='profile-badge' style='background-color: {bg}; border: 1px solid {color}66; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: {color}; font-weight: 900; text-transform: uppercase; box-shadow: 0 4px 10px {bg}; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.5px;'><span style='font-size: 1rem;'>{icon}</span> {b}</span>"
+        icon, color, bg, desc = badge_styles.get(b, ("✨", "#0ac8b9", "rgba(10, 200, 185, 0.15)", "Conquista especial baseada no desempenho."))
+        badges_html += f"<span class='profile-badge' title='{desc}' style='background-color: {bg}; border: 1px solid {color}66; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: {color}; font-weight: 900; text-transform: uppercase; box-shadow: 0 4px 10px {bg}; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.5px;'><span style='font-size: 1rem;'>{icon}</span> {b}</span>"
 
     win_color = "#0ac8b9" if winrate >= 50 else "#D32F2F"
 
