@@ -420,7 +420,7 @@ elif st.session_state.view == 'champ_stats':
                 customdata=hover_texts, hovertemplate="%{customdata}<br>Ratio: <b>%{y}</b><extra></extra>"
             )])
             fig_kda.update_layout(
-                title=dict(text="KDA Ratio por Partida", font=dict(color='#0ac8b9', size=16, style='italic')), 
+                title=dict(text="<i>KDA Ratio por Partida</i>", font=dict(color='#0ac8b9', size=16)), 
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#FFF'), 
                 xaxis=dict(showgrid=False, type='category'), 
                 yaxis=dict(showgrid=True, gridcolor='#333', griddash='dot', zeroline=False), 
@@ -441,7 +441,7 @@ elif st.session_state.view == 'champ_stats':
                 customdata=hover_texts, hovertemplate="%{customdata}<br>CS/m: <b>%{y}</b><extra></extra>"
             )])
             fig_cs.update_layout(
-                title=dict(text="FARM (CS/Minuto) por Partida", font=dict(color='#0ac8b9', size=16, style='italic')), 
+                title=dict(text="<i>FARM (CS/Minuto) por Partida</i>", font=dict(color='#0ac8b9', size=16)), 
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#FFF'), 
                 xaxis=dict(showgrid=False, type='category'), 
                 yaxis=dict(showgrid=True, gridcolor='#333', griddash='dot', zeroline=False), 
