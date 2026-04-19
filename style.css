@@ -1,3 +1,4 @@
+html { zoom: 0.85; } /* Reduz a escala geral do site para tirar a sensação de "zoom" */
 .stApp { background-color: #0D0D0D; color: #EEEEEE; font-family: 'Arial', sans-serif; }
 h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 900 !important; text-transform: uppercase; }
 .lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 6rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: -4px 0px 0px #00BFFF, 4px 0px 0px #FF2A2A; }
