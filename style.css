@@ -141,6 +141,9 @@ header[data-testid="stHeader"] { display: none !important; height: 0px !importan
 footer { display: none !important; }
 div[data-testid="stToolbar"] { display: none !important; }
 
+/* Elimina o contêiner inferior invisível do Streamlit (stBottom) que causa a margem fantasma */
+[data-testid="stBottom"] { display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important; }
+
 /* Remove os espaços gigantes em cima e em baixo */
 [data-testid="stAppViewBlockContainer"], .block-container {
     padding: 0.5rem 0.5rem 0rem 0.5rem !important; /* Margem espremida ao limite */
