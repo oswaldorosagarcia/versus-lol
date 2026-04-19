@@ -58,7 +58,7 @@ if st.session_state.view == 'busca':
         with st.form("search_bar", border=False):
             c_i, c_b = st.columns([6, 1])
             with c_i: 
-                summoner_id = st.text_input("", placeholder="Nome#TAG", label_visibility="collapsed")
+                summoner_id = st.text_input("", placeholder="Digite o Invocador (Nome#TAG)", label_visibility="collapsed")
             with c_b: 
                 btn_buscar = st.form_submit_button("🔍")
             
@@ -85,8 +85,9 @@ if st.session_state.view == 'busca':
 # 📊 TELA 2: DASHBOARD + HISTÓRICO
 # ==========================================
 elif st.session_state.view == 'resultado':
+    p_name = st.session_state.player_data['player'] if st.session_state.player_data else "JOGADOR"
     header_col1, header_col2 = st.columns([4, 1])
-    with header_col1: safe_html("<h2 style='margin-bottom:0; font-style:italic;'>OVERVIEW DO JOGADOR</h2>")
+    with header_col1: safe_html(f"<h2 style='margin-bottom:0; font-style:italic; color:#0ac8b9;'>OVERVIEW DE {p_name.upper()}</h2>")
     with header_col2:
         if st.button("⬅ NOVA BUSCA", use_container_width=True): 
             st.session_state.view = 'busca'
@@ -331,13 +332,13 @@ elif st.session_state.view == 'duelo':
 
         c_j, c_v, c_r = st.columns([2, 1, 2])
         with c_j:
-            safe_html(build_duel_player_card(j, "JOGADOR 1 (VOCÊ)", "#1E88E5"))
+            safe_html(build_duel_player_card(j, j.get('name', 'VOCÊ').upper(), "#1E88E5"))
             
         with c_v: 
             safe_html("<div class='vs-logo'>VS</div>")
             
         with c_r:
-            safe_html(build_duel_player_card(r, "JOGADOR 2 (RIVAL)", "#D32F2F"))
+            safe_html(build_duel_player_card(r, r.get('name', 'RIVAL').upper(), "#D32F2F"))
 
         safe_html("<h3 style='text-align:center; margin:40px 0 20px 0;'>ESTATÍSTICAS COMPARATIVAS</h3>")
         

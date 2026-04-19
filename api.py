@@ -274,6 +274,7 @@ def get_duel():
         for p in match_data["info"]["participants"]:
             if p["puuid"] == puuid:
                 jogador = {
+                    "name": p.get("riotIdGameName", p.get("summonerName", "Unknown")),
                     "champion": p.get("championName", "Unknown"), "kills": p.get("kills", 0), "deaths": p.get("deaths", 0), "assists": p.get("assists", 0), 
                     "gold": p.get("goldEarned", 0), "damage": p.get("totalDamageDealtToChampions", 0), "lane": p.get("teamPosition", ""), "team": p.get("teamId", 0),
                     "cs": p.get("totalMinionsKilled", 0) + p.get("neutralMinionsKilled", 0), "vision": p.get("visionScore", 0), "obj_damage": p.get("damageDealtToObjectives", 0),
@@ -287,6 +288,7 @@ def get_duel():
                 if p.get("teamId") != jogador["team"]:
                     if not rival or p.get("teamPosition") == jogador["lane"]:
                         rival = {
+                            "name": p.get("riotIdGameName", p.get("summonerName", "Unknown")),
                             "champion": p.get("championName", "Unknown"), "kills": p.get("kills", 0), "deaths": p.get("deaths", 0), "assists": p.get("assists", 0), 
                             "gold": p.get("goldEarned", 0), "damage": p.get("totalDamageDealtToChampions", 0), "cs": p.get("totalMinionsKilled", 0) + p.get("neutralMinionsKilled", 0),
                             "vision": p.get("visionScore", 0), "obj_damage": p.get("damageDealtToObjectives", 0), "items": [p.get(f"item{i}", 0) for i in range(7)],
