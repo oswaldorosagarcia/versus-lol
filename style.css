@@ -1,4 +1,5 @@
-html, body { background-color: #0A0A0C !important; zoom: 0.75; margin: 0; padding: 0; min-height: 135vh !important; } /* min-height de 135vh compensa a redução do zoom para preencher a tela física inteira */
+html, body { background-color: #0A0A0C !important; zoom: 0.75; margin: 0; padding: 0; height: auto !important; min-height: 0 !important; }
+.st-emotion-cache { height: auto !important; }
 .stApp, [data-testid="stAppViewContainer"], #root { background-color: #0A0A0C !important; color: #EEEEEE; font-family: 'Inter', 'Segoe UI', sans-serif; padding: 0 !important; margin: 0 !important; }
 h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-transform: uppercase; letter-spacing: 0.5px; }
 .lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 4.5rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: 0 0 20px rgba(0, 191, 255, 0.6), 0 0 40px rgba(255, 42, 42, 0.4); }
@@ -138,12 +139,13 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 
 /* Esconde o cabeçalho branco (Menu/Deploy) e o rodapé padrão */
 header[data-testid="stHeader"] { display: none !important; height: 0px !important; }
-footer { display: none !important; }
+footer { display: none !important; visibility: hidden !important; }
 div[data-testid="stToolbar"] { display: none !important; }
 
 /* Remove os espaços gigantes em cima e em baixo */
 [data-testid="stAppViewBlockContainer"], .block-container {
     padding: 0 !important;
+    padding-bottom: 0 !important;
     margin: 0 !important;
     max-width: 100% !important;
 }
