@@ -32,6 +32,37 @@ def get_rank_info_from_abs(abs_lp):
     return f"{tiers[t_idx]} {ranks[r_idx]}", f"{short_tier}{rank_num}", lp, colors[t_idx]
 
 # ==========================================
+# 🃏 COMPONENTE: CARD DO CAMPEÃO
+# ==========================================
+def render_champion_card(champion_name, icon_url, games, win_rate):
+    wr_color = "#00e676" if win_rate >= 50 else "#ff4e50"
+    
+    with st.container():
+        safe_html(f"""
+        <div style="background-color: rgba(26, 26, 26, 0.6); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: -15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <img src="{icon_url}" width="48" style="border-radius: 50%; border: 2px solid {wr_color}; box-shadow: 0 0 8px {wr_color}44;">
+                    <div>
+                        <h4 style="margin: 0; color: #FFF; font-size: 1.1rem;">{champion_name}</h4>
+                        <p style="margin: 0; color: #888; font-size: 0.85rem;">{games} Partidas</p>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <h3 style="margin: 0; color: {wr_color}; font-size: 1.25rem;">{win_rate}%</h3>
+                    <p style="margin: 0; color: #AAA; font-size: 0.7rem; font-weight: bold;">WIN RATE</p>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0 10px 0;">
+        </div>
+        """)
+        
+        if st.button(f"ANALISAR {champion_name.upper()}", key=f"btn_analisar_{champion_name}", type="primary", use_container_width=True):
+            st.session_state.main_champ = champion_name
+            st.session_state.view = 'champ_stats'
+            st.rerun()
+
+# ==========================================
 # 🎨 CSS GLOBAL - ATUALIZADO COM O TRUQUE MESTRE
 # ==========================================
 load_css("style.css")
@@ -180,36 +211,12 @@ elif st.session_state.view == 'resultado':
                 
                 most_played = sorted(dash_champs.items(), key=lambda x: x[1]['games'], reverse=True)
                 
-                if st.session_state.selected_champion not in [c[0] for c in most_played]:
-                    st.session_state.selected_champion = most_played[0][0] if most_played else None
-
-                with st.container(height=240):
+                with st.container(height=420):
                     for c, s in most_played:
                         wr = round((s['wins']/s['games'])*100)
-                        kc = "#1E88E5" if wr>=50 else "#D32F2F"
-                        
-                        is_selected = (st.session_state.selected_champion == c)
-                        img_style = "border: 2px solid #0ac8b9;" if is_selected else "border: 2px solid transparent;"
-                        
-                        with st.container():
-                            safe_html("<div class='champ-row-marker'></div>")
-                            safe_html(f"<img src='{get_champ_img(c)}' width='50' style='border-radius:50%; box-shadow: 0 0 5px rgba(0,0,0,0.5); {img_style}'>")
-                            
-                            with st.container():
-                                safe_html("<div class='champ-mid-marker'></div>")
-                                if st.button(c, key=f"btn_{c}", use_container_width=True):
-                                    st.session_state.selected_champion = c
-                                    st.rerun()
-                                safe_html(f"<p style='margin:0; color:#888; font-size:0.9rem;'>{s['games']} Played</p>")
-                                
-                            safe_html(f"<div style='text-align:right;'><p style='margin:0; font-weight:900; color:{kc}; font-size:1.2rem;'>{wr}% WR</p></div>")
-                
-                if most_played and st.session_state.selected_champion:
-                    safe_html("<hr style='border-color:#333; margin:15px 0 10px 0;'><div style='text-align:center; margin-bottom:10px;'><h4 style='color:#0ac8b9; font-size:1rem; font-weight:900; letter-spacing:1px; margin:0;'>DEEP DIVE DO CAMPEÃO</h4></div>")
-                    if st.button(f"📈 ANALISAR {st.session_state.selected_champion.upper()}", type="primary", use_container_width=True):
-                        st.session_state.main_champ = st.session_state.selected_champion
-                        st.session_state.view = 'champ_stats'
-                        st.rerun()
+                        icon_url = get_champ_img(c)
+                        render_champion_card(c, icon_url, s['games'], wr)
+                        safe_html("<div style='margin-bottom: 15px;'></div>") # Espaçamento entre os cards
                         
         with dash_c2:
             with st.container(border=True): 
