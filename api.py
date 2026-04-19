@@ -46,7 +46,7 @@ def fetch_match_data(m_id):
     return None
 
 def history_cache_key():
-    data = request.get_json() or {}
+    data = request.get_json(silent=True) or {}
     return f"history_{data.get('summoner', '')}"
 
 @app.route('/history', methods=['POST'])
@@ -257,13 +257,13 @@ def get_history():
         return jsonify({"error": str(e)}), 500
 
 def duel_cache_key():
-    data = request.get_json() or {}
-    return f"duel_{data.get('match_id', '')}"
+    data = request.get_json(silent=True) or {}
+    return f"duel_{data.get('summoner', '')}_{data.get('match_id', '')}"
 
 @app.route('/duel', methods=['POST'])
 @cache.cached(timeout=3600, key_prefix=duel_cache_key) # Cache de 1 hora (Partidas passadas nunca mudam os dados)
 def get_duel():
-    data = request.json
+    data = request.get_json(silent=True) or {}
     riot_id = data.get('summoner', '')
     match_id = data.get('match_id')
     try:

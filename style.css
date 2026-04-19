@@ -42,7 +42,7 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 [data-testid="stForm"] [data-testid="stFormSubmitButton"] > button:hover { background-color: rgba(255, 255, 255, 0.1) !important; color: #0ac8b9 !important; border: none !important; transform: none !important; }
 
 /* COMPONENTES E CARDS (MENORES) */
-.stButton>button { background-color: #1A1A1A; border: 1px solid #444; color: #FFFFFF; font-weight: 800; font-size: 0.8rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); width:100%; transition: all 0.3s ease; padding: 0.25rem 0.5rem !important;}
+.stButton>button { background-color: #1A1A1A; border: 1px solid #444; color: #FFFFFF; font-weight: 800; font-size: 1.1rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); width:100%; transition: all 0.3s ease; padding: 0.6rem 1.2rem !important;}
 .stButton>button:hover { background-color: #2A2A2A; color: #0ac8b9; border-color: #0ac8b9; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(10, 200, 185, 0.2); }
 .data-card { background: rgba(26, 26, 26, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); padding: 12px; margin-bottom: 10px; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
 .vs-logo { font-family: 'Impact', sans-serif; font-size: 3rem; color: #fff; text-shadow: 0 0 15px rgba(211,47,47,0.6), 0 0 30px rgba(30,136,229,0.4); font-style: italic; text-align: center; margin-top: 15px; }
@@ -55,13 +55,13 @@ h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-tr
 .champ-row:hover { background-color: rgba(255,255,255,0.05); border-color: #444; transform: translateX(3px); }
 .metric-card { background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(255,255,255,0.05); padding: 8px; text-align: center; border-radius: 12px; flex: 1; box-shadow: 0 3px 10px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
 .metric-card:hover { transform: translateY(-2px); border-color: rgba(10, 200, 185, 0.3); }
-.metric-val { font-size: 1rem; font-weight: 900; color: #FFF; margin: 0; }
-.metric-lbl { font-size: 0.55rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 3px;}
+.metric-val { font-size: 1.6rem; font-weight: 900; color: #FFF; margin: 0; }
+.metric-lbl { font-size: 0.85rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 3px;}
 
 /* DROPDOWN (SELECTBOX) E BOTÃO DE ANÁLISE */
 [data-testid="stSelectbox"] div[data-baseweb="select"] > div { background-color: #1A1A1A !important; border: 1px solid #444 !important; border-radius: 8px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important; transition: all 0.2s ease; min-height: 35px !important;}
 [data-testid="stSelectbox"] div[data-baseweb="select"]:hover > div { border-color: #0ac8b9 !important; }
-[data-testid="stSelectbox"] div[class*="singleValue"] { color: #0ac8b9 !important; font-weight: 900 !important; font-size: 0.85rem !important; font-style: italic !important; letter-spacing: 1px !important; text-transform: uppercase !important; }
+[data-testid="stSelectbox"] div[class*="singleValue"] { color: #0ac8b9 !important; font-weight: 900 !important; font-size: 1.1rem !important; font-style: italic !important; letter-spacing: 1px !important; text-transform: uppercase !important; }
 
 .stButton > button[kind="primary"] { 
     background: linear-gradient(135deg, #0ac8b9, #1E88E5) !important; border: none !important; color: #000 !important; 

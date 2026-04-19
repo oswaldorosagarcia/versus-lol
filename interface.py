@@ -43,7 +43,7 @@ if 'match_id' not in st.session_state: st.session_state.match_id = ""
 if 'main_champ' not in st.session_state: st.session_state.main_champ = ""
 
 import os
-BACKEND_URL = os.getenv("BACKEND_URL", "https://versus-lol.onrender.com")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000") # APONTADO PARA O LOCALHOST
 
 # ==========================================
 # 🔗 SINCRONIZAÇÃO DE NAVEGAÇÃO POR URL
@@ -58,8 +58,12 @@ if "summoner" in st.query_params:
                 if res.status_code == 200:
                     st.session_state.player_data = res.json()
                     st.session_state.view = 'resultado'
+                else:
+                    st.error("Jogador não encontrado.")
+                    st.session_state.view = 'busca'
             except requests.exceptions.RequestException: 
-                pass
+                st.error("SISTEMA OFFLINE.")
+                st.session_state.view = 'busca'
 
 # ==========================================
 # 🎯 TELA 1: BUSCA
@@ -137,7 +141,7 @@ elif st.session_state.view == 'resultado':
         queues = sorted(list(set(g.get('queue', 'Unknown') for g in p_data['history'])))
         c_f1, c_f2, c_f3 = st.columns([1, 2, 1])
         with c_f2:
-            safe_html("<div style='text-align:center;'><p style='color:#0ac8b9; font-weight:bold; margin-bottom:5px; font-size:0.85rem; letter-spacing:1px;'>FILTRAR PARTIDAS</p></div>")
+            safe_html("<div style='text-align:center;'><p style='color:#0ac8b9; font-weight:bold; margin-bottom:5px; font-size:1rem; letter-spacing:1px;'>FILTRAR PARTIDAS</p></div>")
             sel_q = st.selectbox("Filtro", ["Todas as Filas"] + queues, label_visibility="collapsed")
 
         f_hist = p_data['history'] if sel_q == "Todas as Filas" else [g for g in p_data['history'] if g.get('queue') == sel_q]
@@ -171,7 +175,7 @@ elif st.session_state.view == 'resultado':
         
         with dash_c1:
             with st.container(border=True):
-                safe_html(f"<div style='text-align:center; margin: 10px 0;'><h4 style='color:#FFF; font-size:0.9rem; font-weight:900; letter-spacing:1px; margin:0;'>RECENT CHAMPIONS</h4></div>")
+                safe_html(f"<div style='text-align:center; margin: 10px 0;'><h4 style='color:#FFF; font-size:1.2rem; font-weight:900; letter-spacing:1px; margin:0;'>RECENT CHAMPIONS</h4></div>")
                 ch_h = "<div style='height: 240px; background-color: rgba(17,17,17,0.5); border: 1px solid #333; border-radius: 16px; padding: 10px; overflow-y: auto; overflow-x: hidden; backdrop-filter: blur(5px);'>"
                 for c, s in sorted(dash_champs.items(), key=lambda x: x[1]['games'], reverse=True):
                     wr = round((s['wins']/s['games'])*100)
@@ -179,14 +183,14 @@ elif st.session_state.view == 'resultado':
                     ch_h += f"""
                     <div class='champ-row'>
                         <div style='display:flex; align-items:center; gap:12px;'>
-                            <img src='{get_champ_img(c)}' width='38' style='border-radius:50%; box-shadow: 0 0 5px rgba(0,0,0,0.5);'>
+                            <img src='{get_champ_img(c)}' width='56' style='border-radius:50%; box-shadow: 0 0 5px rgba(0,0,0,0.5);'>
                             <div>
-                                <p style='margin:0; color:#FFF; font-weight:bold; font-size:1rem;'>{c}</p>
-                                <p style='margin:0; color:#888; font-size:0.75rem;'>{s['games']} Played</p>
+                                <p style='margin:0; color:#FFF; font-weight:bold; font-size:1.3rem;'>{c}</p>
+                                <p style='margin:0; color:#888; font-size:1rem;'>{s['games']} Played</p>
                             </div>
                         </div>
                         <div style='text-align:right;'>
-                            <p style='margin:0; font-weight:900; color:{kc}; font-size:1.1rem;'>{wr}% WR</p>
+                            <p style='margin:0; font-weight:900; color:{kc}; font-size:1.5rem;'>{wr}% WR</p>
                         </div>
                     </div>
                     """
@@ -194,7 +198,7 @@ elif st.session_state.view == 'resultado':
                 
                 most_played = sorted(dash_champs.items(), key=lambda x: x[1]['games'], reverse=True)
                 if most_played:
-                    safe_html("<hr style='border-color:#333; margin:15px 0 10px 0;'><div style='text-align:center; margin-bottom:10px;'><h4 style='color:#0ac8b9; font-size:0.8rem; font-weight:900; letter-spacing:1px; margin:0;'>DEEP DIVE DO CAMPEÃO</h4></div>")
+                    safe_html("<hr style='border-color:#333; margin:15px 0 10px 0;'><div style='text-align:center; margin-bottom:10px;'><h4 style='color:#0ac8b9; font-size:1rem; font-weight:900; letter-spacing:1px; margin:0;'>DEEP DIVE DO CAMPEÃO</h4></div>")
                     sel_champ = st.selectbox("Selecione o campeão:", [c[0] for c in most_played], label_visibility="collapsed")
                     if st.button(f"📈 ANALISAR {sel_champ.upper()}", type="primary", use_container_width=True):
                         st.session_state.main_champ = sel_champ
@@ -203,7 +207,7 @@ elif st.session_state.view == 'resultado':
                         
         with dash_c2:
             with st.container(border=True): 
-                safe_html(f"<div style='text-align:center; margin-bottom:10px;'><h4 style='color:#FFF; font-size:0.9rem; font-weight:900; letter-spacing:1px; margin:0;'>PERFORMANCE RADAR (GPI)</h4></div>")
+                safe_html(f"<div style='text-align:center; margin-bottom:10px;'><h4 style='color:#FFF; font-size:1.2rem; font-weight:900; letter-spacing:1px; margin:0;'>PERFORMANCE RADAR (GPI)</h4></div>")
                 
                 rv = list(radar.values())
                 tv = [f"{k}<br><b>{v}</b>" for k, v in radar.items()]
@@ -225,13 +229,13 @@ elif st.session_state.view == 'resultado':
                         bgcolor='rgba(0,0,0,0)'
                     ), 
                     showlegend=False, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
-                margin=dict(l=40, r=40, t=10, b=20), font=dict(color='#AAA', size=10, family="Arial"), height=240
+                margin=dict(l=40, r=40, t=10, b=20), font=dict(color='#AAA', size=14, family="Arial"), height=280
                 )
                 st.plotly_chart(fig_r, use_container_width=True, config={'displayModeBar': False})
                 
         with dash_c3:
             with st.container(border=True):
-                safe_html(f"<div style='text-align:center; margin: 10px 0;'><h4 style='color:#FFF; font-size:0.9rem; font-weight:900; letter-spacing:1px; margin:0;'>LP PROGRESS TRACKING</h4></div>")
+                safe_html(f"<div style='text-align:center; margin: 10px 0;'><h4 style='color:#FFF; font-size:1.2rem; font-weight:900; letter-spacing:1px; margin:0;'>LP PROGRESS TRACKING</h4></div>")
                 
                 abs_lp_current = get_abs_lp(p_tier_raw, p_data.get('rank', 'I'), current_lp)
                 hist_wins = [g['win'] for g in reversed(f_hist)]
@@ -291,9 +295,9 @@ elif st.session_state.view == 'resultado':
                 
                 fig_l.update_layout(
                     paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
-                    xaxis=dict(visible=True, showgrid=False, tickmode='array', tickvals=[1, len(abs_path)//2, len(abs_path)], ticktext=[f"{max(1, len(abs_path)-1)} games ago", str(max(1, (len(abs_path)-1)//2)), "Last game"], tickfont=dict(color='#666', size=10), rangeslider=dict(visible=True, thickness=0.1, bordercolor="#333", borderwidth=1, bgcolor="#000")), 
-                    yaxis=dict(visible=True, showgrid=True, gridcolor='#333', griddash='dot', zeroline=False, range=[y_min - 20, y_max + 20], tickmode='array', tickvals=tick_vals, ticktext=tick_texts, tickfont=dict(size=11)), 
-                margin=dict(l=10, r=10, t=10, b=10), height=160
+                    xaxis=dict(visible=True, showgrid=False, tickmode='array', tickvals=[1, len(abs_path)//2, len(abs_path)], ticktext=[f"{max(1, len(abs_path)-1)} games ago", str(max(1, (len(abs_path)-1)//2)), "Last game"], tickfont=dict(color='#666', size=14), rangeslider=dict(visible=True, thickness=0.1, bordercolor="#333", borderwidth=1, bgcolor="#000")), 
+                    yaxis=dict(visible=True, showgrid=True, gridcolor='#333', griddash='dot', zeroline=False, range=[y_min - 20, y_max + 20], tickmode='array', tickvals=tick_vals, ticktext=tick_texts, tickfont=dict(size=15)), 
+                margin=dict(l=10, r=10, t=10, b=10), height=200
                 )
                 
                 st.plotly_chart(fig_l, use_container_width=True, config={'displayModeBar': False})
@@ -386,7 +390,7 @@ elif st.session_state.view == 'champ_stats':
     with h_c2:
         queues = sorted(list(set(g.get('queue', 'Unknown') for g in p_data['history'] if g['champion'] == c_name)))
         if len(queues) > 1:
-            safe_html("<div style='text-align:center;'><p style='color:#0ac8b9; font-weight:bold; margin-bottom:5px; font-size:0.7rem; letter-spacing:1px;'>FILTRAR FILA</p></div>")
+            safe_html("<div style='text-align:center;'><p style='color:#0ac8b9; font-weight:bold; margin-bottom:5px; font-size:0.9rem; letter-spacing:1px;'>FILTRAR FILA</p></div>")
             sel_q_champ = st.selectbox("Filtro", ["Todas as Filas"] + queues, key="champ_q", label_visibility="collapsed")
         else:
             sel_q_champ = "Todas as Filas"
