@@ -43,7 +43,10 @@ if 'match_id' not in st.session_state: st.session_state.match_id = ""
 if 'main_champ' not in st.session_state: st.session_state.main_champ = ""
 
 import os
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000")
+try:
+    BACKEND_URL = st.secrets["BACKEND_URL"].rstrip("/")
+except:
+    BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000").rstrip("/")
 
 # ==========================================
 # 🎯 TELA 1: BUSCA
@@ -68,7 +71,7 @@ if st.session_state.view == 'busca':
                 with st.spinner(''):
                     sucesso = False
                     try:
-                        res = requests.post(f"{BACKEND_URL}/history", json={"summoner": summoner_id}, timeout=30)
+                        res = requests.post(f"{BACKEND_URL}/history", json={"summoner": summoner_id}, timeout=60)
                         if res.status_code == 200:
                             st.session_state.player_data = res.json()
                             sucesso = True
@@ -308,7 +311,7 @@ elif st.session_state.view == 'resultado':
 # ⚔️ TELA 3: O DUELO ABSOLUTO
 # ==========================================
 elif st.session_state.view == 'duelo':
-    res = requests.post(f"{BACKEND_URL}/duel", json={"summoner": st.session_state.current_summoner, "match_id": st.session_state.match_id}, timeout=20)
+    res = requests.post(f"{BACKEND_URL}/duel", json={"summoner": st.session_state.current_summoner, "match_id": st.session_state.match_id}, timeout=60)
     
     if res.status_code == 200:
         d = res.json()
