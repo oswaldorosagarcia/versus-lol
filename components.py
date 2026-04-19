@@ -116,7 +116,6 @@ def build_overview_header_html(p_data):
     
     total_games = p_data.get('wins', 0) + p_data.get('losses', 0)
     winrate = round((p_data.get('wins', 0) / max(total_games, 1)) * 100) if total_games > 0 else 0
-    status_msg = "🔥 Jogador em chamas!" if winrate >= 60 else ("📈 Escalando de forma constante." if winrate >= 50 else "🧊 Fase fria, precisa focar mais.")
     
     badge_styles = {
         "KDA Player": ("⭐", "#FFD700", "rgba(255, 215, 0, 0.15)", "KDA médio superior a 3.5 nas últimas partidas."),
@@ -155,7 +154,6 @@ def build_overview_header_html(p_data):
                 <div style='width:100%; height:8px; background:#222; border-radius:8px; margin-top:4px; border: 1px solid #111;'>
                     <div style='width:{winrate}%; height:100%; background:{win_color}; border-radius:8px; box-shadow: 0 0 8px {win_color};'></div>
                 </div>
-                <p style='margin: 6px 0 0 0; font-size: 0.75rem; color: #AAA; font-style: italic; text-align: right;'>{status_msg}</p>
             </div>
         </div>
     </div>
