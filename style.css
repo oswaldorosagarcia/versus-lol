@@ -1,149 +1,82 @@
-html, body { background-color: #0A0A0C !important; zoom: 0.75; }
-.stApp { background-color: #0A0A0C !important; color: #EEEEEE; font-family: 'Inter', 'Segoe UI', sans-serif; }
+/* RESET GLOBAL E FUNDO (SEM ZOOM) */
+html, body, .stApp, [data-testid="stAppViewContainer"] { background-color: #0A0A0C !important; margin: 0 !important; padding: 0 !important; }
+.stApp { color: #EEEEEE; font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+/* TIPOGRAFIA BASE REDUZIDA */
 h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-transform: uppercase; letter-spacing: 0.5px; }
-.lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 4.5rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: 0 0 20px rgba(0, 191, 255, 0.6), 0 0 40px rgba(255, 42, 42, 0.4); }
+.lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 3.5rem; font-style: italic; margin-bottom: 15px; color: #FFFFFF; text-shadow: 0 0 15px rgba(0, 191, 255, 0.6), 0 0 30px rgba(255, 42, 42, 0.4); }
 
-/* Remove a borda padrão do form */
+/* BARRA DE PESQUISA (COMPACTA) */
 [data-testid="stForm"] { border: none !important; background: transparent !important; padding: 0 !important; }
-
-/* ========================================================= */
-/* 🔥 O TRUQUE: O Container vira a Barra de Pesquisa Única   */
-/* ========================================================= */
 [data-testid="stForm"] div[data-testid="stHorizontalBlock"] {
     background-color: #121212 !important;
     border: 1px solid #333 !important;
-    border-radius: 30px !important; /* Visual de pílula moderno */
-    padding: 0 !important;
-    margin: 0 !important;
-    gap: 0 !important;
-    height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    overflow: hidden !important; /* Impede que lupa ou input vazem os cantos redondos */
+    border-radius: 25px !important; 
+    padding: 0 !important; margin: 0 !important; gap: 0 !important;
+    height: 40px !important;
+    display: flex !important; align-items: center !important; overflow: hidden !important; 
     transition: all 0.3s ease;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4) !important;
 }
-
-/* Brilha a borda da caixa inteira quando clica pra digitar */
-[data-testid="stForm"] div[data-testid="stHorizontalBlock"]:focus-within { border-color: #0ac8b9 !important; box-shadow: 0 0 20px rgba(10, 200, 185, 0.2) !important; }
-
-/* CAIXA DE TEXTO: Fica invisível por fora, só aparece a letra */
+[data-testid="stForm"] div[data-testid="stHorizontalBlock"]:focus-within { border-color: #0ac8b9 !important; box-shadow: 0 0 15px rgba(10, 200, 185, 0.2) !important; }
 [data-testid="stForm"] div[data-testid="stWidgetLabel"], 
 [data-testid="stForm"] div[data-testid="InputInstructions"], 
 [data-testid="stForm"] label { display: none !important; height: 0 !important; margin: 0 !important; padding: 0 !important; }
-[data-testid="stForm"] .stTextInput { padding: 0 !important; margin: 0 !important; height: 50px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
+[data-testid="stForm"] .stTextInput { padding: 0 !important; margin: 0 !important; height: 40px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
 [data-testid="stForm"] div[data-baseweb="input"], 
 [data-testid="stForm"] div[data-baseweb="input"] > div,
 [data-testid="stForm"] div[data-baseweb="base-input"] { background-color: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; height: 100% !important; }
 [data-testid="stForm"] .stTextInput>div>div>input {
-    background-color: transparent !important;
-    border: none !important;
-    color: #FFFFFF !important;
-    font-weight: 900 !important;
-    text-align: center !important;
-    font-size: 1.2rem !important;
-    height: 100% !important;
-    line-height: normal !important;
-    box-shadow: none !important;
-    padding: 0 15px !important;
-    margin: 0 !important;
+    background-color: transparent !important; border: none !important; color: #FFFFFF !important;
+    font-weight: 900 !important; text-align: center !important; font-size: 1rem !important;
+    height: 100% !important; line-height: normal !important; box-shadow: none !important; padding: 0 15px !important; margin: 0 !important;
 }
 [data-testid="stForm"] .stTextInput>div>div>input::placeholder { color: #DDDDDD; }
 [data-testid="stForm"] .stTextInput>div>div>input:focus { box-shadow: none !important; border: none !important; }
-
-/* LUPA: Fica invisível por fora, vira apenas um ícone dentro da caixa maior */
-[data-testid="stForm"] [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 50px !important; }
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 40px !important; }
 [data-testid="stForm"] [data-testid="stFormSubmitButton"] > button {
-    background-color: transparent !important;
-    border: none !important;
-    color: #FFFFFF !important;
-    height: 100% !important;
-    width: 100% !important;
-    font-size: 1.4rem !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
+    background-color: transparent !important; border: none !important; color: #FFFFFF !important;
+    height: 100% !important; width: 100% !important; font-size: 1.1rem !important;
+    box-shadow: none !important; margin: 0 !important; padding: 0 !important; border-radius: 0 !important;
 }
-[data-testid="stForm"] [data-testid="stFormSubmitButton"] > button:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important; /* Leve brilho de fundo */
-    color: #0ac8b9 !important;
-    border: none !important;
-    transform: none !important; /* Remove o salto animado da lupa */
-}
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] > button:hover { background-color: rgba(255, 255, 255, 0.1) !important; color: #0ac8b9 !important; border: none !important; transform: none !important; }
 
-/* ========================================================= */
-/* BOTÕES GERAIS E CARDS (MANTIDOS INTACTOS)                 */
-/* ========================================================= */
-.stButton>button { background-color: #1A1A1A; border: 1px solid #444; color: #FFFFFF; font-weight: 800; font-size: 0.95rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); width:100%; transition: all 0.3s ease; padding: 0.25rem 0.5rem !important;}
-.stButton>button:hover { background-color: #2A2A2A; color: #0ac8b9; border-color: #0ac8b9; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(10, 200, 185, 0.2); }
-.data-card { background: rgba(26, 26, 26, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); padding: 15px; margin-bottom: 12px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-.vs-logo { font-family: 'Impact', sans-serif; font-size: 4rem; color: #fff; text-shadow: 0 0 20px rgba(211,47,47,0.6), 0 0 40px rgba(30,136,229,0.4); font-style: italic; text-align: center; margin-top: 20px; }
+/* COMPONENTES E CARDS (MENORES) */
+.stButton>button { background-color: #1A1A1A; border: 1px solid #444; color: #FFFFFF; font-weight: 800; font-size: 0.8rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); width:100%; transition: all 0.3s ease; padding: 0.25rem 0.5rem !important;}
+.stButton>button:hover { background-color: #2A2A2A; color: #0ac8b9; border-color: #0ac8b9; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(10, 200, 185, 0.2); }
+.data-card { background: rgba(26, 26, 26, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); padding: 12px; margin-bottom: 10px; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+.vs-logo { font-family: 'Impact', sans-serif; font-size: 3rem; color: #fff; text-shadow: 0 0 15px rgba(211,47,47,0.6), 0 0 30px rgba(30,136,229,0.4); font-style: italic; text-align: center; margin-top: 15px; }
 
 .profile-badge { transition: all 0.3s ease; cursor: default; }
-.profile-badge:hover { transform: translateY(-3px); filter: brightness(1.2); }
+.profile-badge:hover { transform: translateY(-2px); filter: brightness(1.2); }
 
-.overview-header { display:flex; justify-content:space-between; align-items:center; border-top: 4px solid #1E88E5; padding: 20px; background: linear-gradient(135deg, #151515, #1a1a1a); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
-.champ-row { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #222; padding:10px 8px; transition: all 0.2s ease; border-radius: 12px; }
-.champ-row:hover { background-color: rgba(255,255,255,0.05); border-color: #444; transform: translateX(4px); }
-.metric-card { background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(255,255,255,0.05); padding: 10px; text-align: center; border-radius: 16px; flex: 1; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
+.overview-header { display:flex; justify-content:space-between; align-items:center; border-top: 4px solid #1E88E5; padding: 15px; background: linear-gradient(135deg, #151515, #1a1a1a); border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
+.champ-row { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #222; padding:8px 6px; transition: all 0.2s ease; border-radius: 8px; }
+.champ-row:hover { background-color: rgba(255,255,255,0.05); border-color: #444; transform: translateX(3px); }
+.metric-card { background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(255,255,255,0.05); padding: 8px; text-align: center; border-radius: 12px; flex: 1; box-shadow: 0 3px 10px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
 .metric-card:hover { transform: translateY(-2px); border-color: rgba(10, 200, 185, 0.3); }
-.metric-val { font-size: 1.2rem; font-weight: 900; color: #FFF; margin: 0; }
-.metric-lbl { font-size: 0.65rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 4px;}
+.metric-val { font-size: 1rem; font-weight: 900; color: #FFF; margin: 0; }
+.metric-lbl { font-size: 0.55rem; color: #AAA; margin: 0; text-transform: uppercase; font-weight:bold; letter-spacing: 0.5px; margin-top: 3px;}
 
-/* ========================================================= */
-/* 🔥 DROPDOWN (SELECTBOX) E BOTÃO DE ANÁLISE                */
-/* ========================================================= */
-
-/* Fundo e Borda da Caixa de Seleção */
-[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-    background-color: #1A1A1A !important;
-    border: 1px solid #444 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    transition: all 0.2s ease;
-}
+/* DROPDOWN (SELECTBOX) E BOTÃO DE ANÁLISE */
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div { background-color: #1A1A1A !important; border: 1px solid #444 !important; border-radius: 8px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important; transition: all 0.2s ease; min-height: 35px !important;}
 [data-testid="stSelectbox"] div[data-baseweb="select"]:hover > div { border-color: #0ac8b9 !important; }
+[data-testid="stSelectbox"] div[class*="singleValue"] { color: #0ac8b9 !important; font-weight: 900 !important; font-size: 0.85rem !important; font-style: italic !important; letter-spacing: 1px !important; text-transform: uppercase !important; }
 
-/* Fonte Customizada do Campeão Selecionado */
-[data-testid="stSelectbox"] div[class*="singleValue"] {
-    color: #0ac8b9 !important;
-    font-weight: 900 !important;
-    font-size: 1rem !important;
-    font-style: italic !important;
-    letter-spacing: 1px !important;
-    text-transform: uppercase !important;
-}
-
-/* Botão Primário Brutalista (Analisar Campeão) - ESTILO VERSUS.LOL */
 .stButton > button[kind="primary"] { 
-    background: linear-gradient(135deg, #0ac8b9, #1E88E5) !important; 
-    border: none !important; 
-    color: #000 !important; 
-    border-radius: 16px !important; 
-    box-shadow: 0 6px 20px rgba(10, 200, 185, 0.3) !important; 
-    font-weight: 900 !important;
-    text-transform: uppercase !important;
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #0ac8b9, #1E88E5) !important; border: none !important; color: #000 !important; 
+    border-radius: 12px !important; box-shadow: 0 4px 15px rgba(10, 200, 185, 0.3) !important; 
+    font-weight: 900 !important; text-transform: uppercase !important; transition: all 0.3s ease;
 }
-.stButton > button[kind="primary"]:hover { 
-    transform: translateY(-3px) !important; 
-    box-shadow: 0 10px 25px rgba(10, 200, 185, 0.5) !important; 
-    color: #FFF !important; 
-}
+.stButton > button[kind="primary"]:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(10, 200, 185, 0.5) !important; color: #FFF !important; }
 
-/* ========================================================= */
-/* 🔥 OTIMIZAÇÃO: REMOVER MARGENS NATIVAS DA NUVEM           */
-/* ========================================================= */
-
-/* Esconde o cabeçalho branco (Menu/Deploy) e o rodapé padrão */
+/* OTIMIZAÇÃO DE ESPAÇO NATIVO DO STREAMLIT */
 header[data-testid="stHeader"] { display: none !important; height: 0px !important; }
 footer { display: none !important; }
 div[data-testid="stToolbar"] { display: none !important; }
-div[data-testid="stBottom"] { display: none !important; } /* Desliga o espaço fantasma do input de chat no rodapé do Streamlit */
+div[data-testid="stBottom"] { display: none !important; } 
 
-/* Espaçamento base do layout */
 .block-container {
-    padding: 2rem 1rem 2rem 1rem !important; /* Devolve um leve respiro nas laterais e no topo/fundo */
-    max-width: 95% !important; /* Limita a largura para os cards não colarem nas bordas da tela */
+    padding: 1.5rem 1rem 1rem 1rem !important;
+    max-width: 95% !important;
 }
