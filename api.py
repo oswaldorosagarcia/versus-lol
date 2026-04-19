@@ -97,13 +97,13 @@ def get_history():
                     losses = valid_q.get("losses", 0)
                     rank_type = "Ranked Solo" if valid_q.get("queueType") == "RANKED_SOLO_5x5" else "Ranked Flex"
 
-        url_matches = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids?start=0&count=50"
+        url_matches = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids?start=0&count=15"
         match_ids = requests.get(url_matches, headers=HEADERS).json()
 
         def fetch_match(m_id): return m_id, fetch_match_data(m_id)
 
         matches_dict = {}
-        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
             futures = [executor.submit(fetch_match, m_id) for m_id in match_ids]
             for future in concurrent.futures.as_completed(futures):
                 m_id, match_data = future.result()

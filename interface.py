@@ -107,7 +107,7 @@ elif st.session_state.view == 'resultado':
         safe_html("""
         <div style='display:flex; align-items:center; justify-content:center; margin: 30px 0 20px 0;'>
             <div style='height: 1px; background: linear-gradient(90deg, transparent, #333, transparent); flex-grow: 1;'></div>
-            <span style='background-color:rgba(10, 200, 185, 0.1); color:#0ac8b9; font-size:0.75rem; font-weight:900; letter-spacing:2px; border: 1px solid #0ac8b9; padding: 4px 15px; border-radius: 20px; margin: 0 20px; box-shadow: 0 0 8px rgba(10, 200, 185, 0.2);'>ANÁLISE DAS ÚLTIMAS 50 PARTIDAS</span>
+            <span style='background-color:rgba(10, 200, 185, 0.1); color:#0ac8b9; font-size:0.75rem; font-weight:900; letter-spacing:2px; border: 1px solid #0ac8b9; padding: 4px 15px; border-radius: 20px; margin: 0 20px; box-shadow: 0 0 8px rgba(10, 200, 185, 0.2);'>ANÁLISE DAS ÚLTIMAS 15 PARTIDAS</span>
             <div style='height: 1px; background: linear-gradient(90deg, transparent, #333, transparent); flex-grow: 1;'></div>
         </div>
         """)
