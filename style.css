@@ -1,5 +1,5 @@
-html { zoom: 0.75; } /* Reduz a escala geral do site para tirar a sensação de "zoom" */
-.stApp { background-color: #0A0A0C; color: #EEEEEE; font-family: 'Inter', 'Segoe UI', sans-serif; }
+html, body { background-color: #0A0A0C !important; zoom: 0.75; width: 100%; height: 100%; margin: 0; padding: 0; } /* Garante fundo infinito sem margens sobressalentes */
+.stApp { background-color: #0A0A0C !important; color: #EEEEEE; font-family: 'Inter', 'Segoe UI', sans-serif; }
 h1, h2, h3, h4 { color: #FFFFFF !important; font-weight: 800 !important; text-transform: uppercase; letter-spacing: 0.5px; }
 .lol-title { font-family: 'Impact', sans-serif; text-align: center; font-size: 4.5rem; font-style: italic; margin-bottom: 20px; color: #FFFFFF; text-shadow: 0 0 20px rgba(0, 191, 255, 0.6), 0 0 40px rgba(255, 42, 42, 0.4); }
 
@@ -143,6 +143,6 @@ div[data-testid="stToolbar"] { display: none !important; }
 
 /* Remove os espaços gigantes em cima e em baixo */
 .block-container {
-    padding: 1rem 1rem 0rem 1rem !important;
-    max-width: 95% !important;
+    padding: 1.5rem 2rem 0rem 2rem !important;
+    max-width: 100% !important;
 }
